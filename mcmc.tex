@@ -1,0 +1,53 @@
+\documentclass[12pt,a4paper]{article}
+\usepackage{amsmath}
+\usepackage{amssymb}
+
+\author{Jiejia Xu}
+\begin{document}
+
+\[
+f(x) \propto P(x)
+\]
+
+detail balance
+\[
+P(x'|x)P(x) = P(x|x')P(x')
+\]
+\[
+\frac{P(x'|x)}{P(x|x')}=\frac{P(x')}{P(x)}
+\]
+
+let
+\[
+P(x'|x) = g(x'|x)A(x',x)
+\]
+
+then $A(x',x)$ need to satisfied
+\[
+\frac{A(x',x)}{A(x,x')}=\frac{P(x')g(x|x')}{P(x)g(x'|x)}
+\]
+
+the Metropolis choice
+\[
+A(x',x) = \min \left ( 1,\frac{P(x')g(x|x')}{P(x)g(x'|x)} \right)
+\]
+
+\[
+\alpha(x',x) = \frac{P(x')g(x|x')}{P(x)g(x'|x)} 
+\]
+and
+\[
+\alpha(x',x) = \frac{1}{\alpha(x,x')}
+\]
+
+
+if $\alpha(x',x) \leq 1$ then $A(x',x) = \alpha(x',x)$ and $A(x,x') =1$
+
+if $\alpha(x',x) > 1$ then $A(x',x) = 1$ and $A(x,x') =\alpha(x,x') = \frac{1}{\alpha(x',x)}$
+therefore, the Metropolis choice of $A(x',x)$ satisfied
+\[
+\frac{A(x',x)}{A(x,x')}=\frac{P(x')g(x|x')}{P(x)g(x'|x)}
+\]
+
+
+\end{document}

@@ -1,0 +1,846 @@
+\documentclass[12pt,a4paper]{article}
+\usepackage[english]{babel}
+\usepackage{amsmath}
+\usepackage{amsfonts}
+\usepackage{amssymb}
+\usepackage{graphicx}
+
+\usepackage{tikz}
+\usetikzlibrary{graphs,graphdrawing,arrows.meta,quotes,backgrounds,calc,intersections,through,decorations.pathmorphing}
+
+
+\usepackage[left=2cm,right=2cm,top=2cm,bottom=2cm]{geometry}
+\author{Jiejia Xu}
+
+\DeclareMathOperator*{\argmax}{argmax} 
+\DeclareMathOperator*{\argmin}{argmin}
+
+\newcommand{\widesim}[2][1.5]{
+  \mathrel{\overset{#2}{\scalebox{#1}[1]{$\sim$}}}
+}
+
+\newcommand{\indep}{\perp \!\!\! \perp}
+
+
+\begin{document}
+
+\section{Central limit theorem}
+\[
+\sqrt{n}\frac{\bar{X}_n -\mu}{\sigma} \xrightarrow[n \rightarrow \infty]{(d)} \mathcal{N}(0,1)
+\]
+
+\noindent or
+
+\[
+\sqrt{n}(\bar{X}_n -\mu) \xrightarrow[n \rightarrow \infty]{(d)} \mathcal{N}(0,\sigma^2)
+\]
+
+\section{Slutsky’s theorem}
+if
+\[
+X_n \xrightarrow[n \rightarrow \infty]{(d)} X
+\]
+
+\[
+Y_n \xrightarrow[n \rightarrow \infty]{(d)} Y
+\]
+
+\noindent then
+
+\[
+(X_n,Y_n) \xrightarrow[n \rightarrow \infty]{(d)} (X,Y)
+\]
+
+\noindent particular
+\[
+X_n+Y_n \xrightarrow[n \rightarrow \infty]{(d)} X+Y
+\quad\quad
+X_nY_n \xrightarrow[n \rightarrow \infty]{(d)} XY
+\quad\quad
+\frac{X_n}{Y_n}  \xrightarrow[n \rightarrow \infty]{(d)} \frac{X}{Y}
+\]
+
+\section{The Delta method}
+if
+
+\[
+\sqrt{n}(Z_n -\theta) \xrightarrow[n \rightarrow \infty]{(d)} \mathcal{N}(0,\sigma^2)
+\]
+
+\noindent then
+\[
+\sqrt{n}(g(Z_n) -g(\theta)) \xrightarrow[n \rightarrow \infty]{(d)} \mathcal{N}(0,\sigma^2 g'(\theta)^2)
+\]
+
+
+\section{Statistical model}
+\[
+\scalebox{2}{\ensuremath{(E,\mathbb{P}_\theta)}}
+\]
+
+$E$ is the sample space, such as $\mathbb{R}$, $\mathbb{R}^+$, $\mathbb{N}$
+
+$\mathbb{P}_\theta$ is the distribution family with parameter $\theta$
+
+$\theta \in \Theta$ is the parameter in parameter space $\Theta$
+
+\vspace{1cm}
+The parameter $\theta$ is called \textit{identified}
+\[
+	\theta = \theta' \Rightarrow \mathbb{P}_\theta = \mathbb{P}_{\theta'}
+\]
+
+\section{Parameter estimation}
+\begin{itemize}
+\item \textit{Statistic} Any measuralbe of the sample
+\item \textit{Estimator} Any statistic expression dose not depend on $\theta$
+\item \textit{Bias}
+\[
+\mathbb{E}[\hat{\theta}_n - \theta]
+\]
+\item \textit{quadratic risk}
+\[
+\mathbb{E}[|\hat{\theta}_n - \theta|^2]
+\]
+\item \textit{Confidence interval} of level $1-\alpha$: $\mathcal{I}$
+\[
+	\mathbb{P}_\theta [\theta \in \mathcal{I}] \geq 1-\alpha
+\]
+
+\end{itemize}
+
+\section{Total variation distance}
+\[
+TV(\mathbb{P}_\theta,\mathbb{P}_\theta') = \max\limits_{A \subset E} |\mathbb{P}_\theta - \mathbb{P}_\theta'|
+\]
+
+\noindent equivalent to
+\[
+\arraycolsep=1.4pt
+\def\arraystretch{2}
+\mathrm{TV}(\mathbb{P}_\theta,\mathbb{P}_\theta') =\left\{\begin{array}{l}
+\displaystyle \frac{1}{2}\sum_{x \in E}|p_\theta (x) - p_\theta' (x)|\\
+\displaystyle \frac{1}{2}\int_{E}|f_\theta (x) - f_\theta' (x) |\mathrm{d}x\\
+\end{array}
+\right.
+\]
+
+
+\section{Kullback-Leibler divergence}
+\[
+\arraycolsep=1.4pt
+\def\arraystretch{2}
+\mathrm{KL}(\mathbb{P}_\theta,\mathbb{P}_\theta') =\left\{\begin{array}{l}
+\displaystyle \frac{1}{2}\sum_{x \in E}p_\theta(x)\mathrm{log}\frac{p_\theta(x)}{p_\theta'(x)}\\
+\displaystyle \frac{1}{2}\int_{E}f_\theta (x)\mathrm{log}\frac{f_\theta (x)}{f_\theta' (x) }\mathrm{d}x\\
+\end{array}
+\right.
+\]
+
+\[
+\arraycolsep=1.4pt
+\def\arraystretch{2.5}
+\begin{array}{rcl}
+ \mathrm{KL}(\mathbb{P}_{\theta^*},\mathbb{P}_\theta) & = & \displaystyle \mathbb{E}_{\theta^*}\left[ 
+	\mathrm{log}\left(\frac{p_{\theta^*}(X)}{p_{\theta}(X)}\right)
+	\right] \\
+	& = & \displaystyle \mathbb{E}_{\theta^*}\left[ \mathrm{log}p_{\theta^*}(X)\right] - \mathbb{E}_{\theta^*}\left[ \mathrm{log}p_{\theta}(X)\right] \\
+\end{array}
+\]
+
+\[
+	\widehat{\mathrm{KL}}(\mathbb{P}_{\theta^*},\mathbb{P}_\theta) =  -\mathrm{entropy}(p_{\theta^*}) - \frac{1}{n}\sum_{i = 1}^{n}\mathrm{log}p_{\theta}(X_i)
+\]
+
+\[
+\arraycolsep=1.4pt
+\def\arraystretch{2.5}
+\begin{array}{rcl}
+	\min\limits_{\theta \in \Theta} \widehat{\mathrm{KL}}(\mathbb{P}_{\theta^*},\mathbb{P}_\theta)  & \Leftrightarrow & \displaystyle
+	\max_{\theta \in \Theta} \frac{1}{n}\sum_{i = 1}^{n}\mathrm{log}p_{\theta}(X_i) \\
+	& \Leftrightarrow & \displaystyle \max_{\theta \in \Theta} \prod_{i = 1}^{n}p_{\theta}(X_i) \\
+\end{array}
+\]
+
+
+\section{Likelihood, Discrete case}
+\[
+L_n : E^n \times \Theta \rightarrow \mathbb{R}
+\]
+\[
+\arraycolsep=1.4pt
+\def\arraystretch{2.5}
+\begin{array}{ccl}
+	(x_1,x_2,\cdots,x_n,\theta) & \mapsto & \mathbb{P}_{\theta}[X_1 = x_1, X_2 = x_2, \cdots, X_n = x_n] \\
+	(x_1,x_2,\cdots,x_n,\theta) & \mapsto & \displaystyle \prod_{i=1}^{n}\mathbb{P}_{\theta}[X_i = x_i] \\
+\end{array}
+\]
+
+\section{Likelihood, Continuous case}
+\[
+L_n : E^n \times \Theta \rightarrow \mathbb{R}
+\]
+\[
+	(x_1,x_2,\cdots,x_n,\theta) \mapsto \prod_{i=1}^{n}f_{\theta}(x_i)
+\]
+
+\section{Maximum Likelihood Estimator (MLE)}
+\[
+	\hat{\theta}_{n}^{MLE} = \argmax_{\theta \in \Theta} L_n(X_1,X_2,\cdots,X_n,\theta)
+\]
+or use log-likelihood
+\[
+	\hat{\theta}_{n}^{MLE} = \argmax_{\theta \in \Theta} \mathrm{log}L_n(X_1,X_2,\cdots,X_n,\theta)
+\]
+
+\section{Fisher information}
+
+\hspace{\parindent}log-likelihood for one observation
+\[
+	l(\theta) = \mathrm{log}L_1(X,\theta)
+\]
+
+Fisher information
+\[
+	I(\theta) = \mathbb{E}[\nabla l(\theta)\nabla l(\theta)^T]-\mathbb{E}[\nabla l(\theta)]\mathbb{E}[\nabla l(\theta)]^T
+\]
+
+or expected Hessian
+\[
+	I(\theta) = -\mathbb{E}[\nabla^2 l(\theta)]
+\]
+
+MLE Theorem
+\[
+	\sqrt{n}\left(\hat{\theta}_{n}^{MLE} - \theta^*\right) \xrightarrow[n \rightarrow \infty]{(d)} \mathcal{N}\left(0,I(\theta^*)^{-1}\right)
+\]
+
+
+\section{distributions for hypothesis testing}
+\textbf{$\chi^2$ distributions}
+\[
+\chi^2_n = Z^2_1+Z^2_2+\cdots+Z^2_n
+\]
+\[
+Z_1,Z_2,\cdots,Z_n \widesim{iid} \mathcal{N}(0,1)
+\]
+
+cases:
+
+$X_1,X_2,\cdots,X_n \widesim{iid} \mathcal{N}(\mu,\sigma^2)$
+
+\[
+	S_n = \frac{1}{n}\sum_{i=1}^{n}(X_i-\bar{X}_n)^2
+\]
+
+\[
+	\frac{nS_n}{\sigma^2} \sim \chi^2_{n-1}
+\]
+
+\noindent\textbf{$t$ distributions}
+
+\[
+T = \frac{Z}{\sqrt{V/d}} \sim t_{n-1}
+\]
+
+\[ Z \sim \mathcal{N}(0,1) \quad\quad V \sim \chi^2_d \quad\quad Z \indep V \]
+
+cases:
+
+$X_1,X_2,\cdots,X_n \widesim{iid} \mathcal{N}(\mu,\sigma^2)$
+
+\[
+\sqrt{n-1}\frac{\bar{X}_n -\mu}{\sqrt{S_n}} \sim t_{n-1}
+\]
+
+
+\noindent\textbf{$F$ distributions:\textit{Fisher} distribution}
+\[
+U\sim \chi^2_p \quad V\sim \chi^2_q \quad U \indep V
+\]
+
+\[
+F_{p,q} = \frac{U/p}{V/q}
+\]
+
+\section{hypothesis testing}
+\hspace{\parindent}\textbf{Wald’s test} 
+
+\[
+\begin{cases}
+	H_0:\theta = \theta_0 \\
+	H_1:\theta \neq \theta_0 \\
+\end{cases}
+\]
+
+$\theta \in \Theta \subset \mathbb{R}^d$
+\[
+	\sqrt{n}\,I(\hat{\theta}_{n}^{MLE})^{1/2}\,\left(\hat{\theta}_{n}^{MLE} - \theta_0\right) \xrightarrow[n \rightarrow \infty]{(d)} \mathcal{N}\left(0,I_d\right)
+\]
+
+\[
+	T_n = n \, \left(\hat{\theta}_{n}^{MLE} - \theta_0\right)^T \, I(\hat{\theta}_{n}^{MLE}) \, \left(\hat{\theta}_{n}^{MLE} - \theta_0\right) 
+		\xrightarrow[n \rightarrow \infty]{(d)} \chi^2_{d}
+\]
+
+\textbf{Likelihood ratio test}
+
+\[
+	H_0: (\theta_{r+1},\theta_{r+2},\cdots,\theta_{d}) = (\theta_{r+1}^{(0)},\theta_{r+2}^{(0)},\cdots,\theta_{d}^{(0)})
+\]
+
+\[
+\hat{\theta}_n = \argmax_{x \in \Theta} \ell_n(\theta)
+\]
+
+\[
+\hat{\theta}_n^c = \argmax_{x \in \Theta_0} \ell_n(\theta)
+\]
+
+\[
+T_n = 2(\ell_n(\hat{\theta}_n)- \ell_n(\hat{\theta}_n^c )) \xrightarrow[n \rightarrow \infty]{(d)} \chi^2_{d-r}
+\]
+
+
+\textbf{Testing implicit hypotheses}
+\[
+\begin{cases}
+H_0:g(\theta) = 0 \\
+H_1:g(\theta) \neq 0 \\
+\end{cases}
+\]
+
+\[
+	g: \mathbb{R}^d \rightarrow \mathbb{R}^k
+\]
+
+
+\[
+	\sqrt{n} (\hat{\theta}_n - \theta) \xrightarrow[n \rightarrow \infty]{(d)} \mathcal{N}_d(0,\Sigma(\theta))
+\]
+
+\[
+	\sqrt{n} (g(\hat{\theta}_n) - g(\theta)) \xrightarrow[n \rightarrow \infty]{(d)} \mathcal{N}_d(0,\Gamma(\theta))
+\]
+
+\[
+\Gamma(\theta) = \nabla g(\theta) ^T \Sigma(\theta) \nabla g(\theta)
+\]
+
+\[
+	\sqrt{n}\,\Gamma(\hat{\theta}_n)^{-1/2}\,\left( g(\hat{\theta}_n) - g(\theta)\right) \xrightarrow[n \rightarrow \infty]{(d)} \mathcal{N}\left(0,I_d\right)
+\]
+
+under $H_0$ $g(\theta) = 0 $
+
+\[
+	T_n = n g(\hat{\theta}_n)^T \Gamma(\hat{\theta}_n)^{-1} g(\hat{\theta}_n) \xrightarrow[n \rightarrow \infty]{(d)} \chi^2_k
+\]
+
+\textbf{The multinomial case}
+
+\[
+\begin{cases}
+H_0: \mathbf{p} = \mathbf{p}^0 \\
+H_1: \mathbf{p} \neq \mathbf{p}^0 \\
+\end{cases}
+\]
+
+\[
+\mathbf{p} \in \mathbb{R}^k \quad \sum_{i = 1}^{k} p_i = 1
+\]
+
+
+\[
+T_n = n \sum_{i = 1}^{k} \frac{( \hat{p}_i-p^0_i )^2}{p^0_i} \xrightarrow[n \rightarrow \infty]{(d)} \chi^2_{k-1}
+\]
+
+
+\section{CDF and empirical CDF}
+\[
+	F(t) = \mathbb{P}[X_1 \leqslant t] \quad \forall t \in \mathbb{R}
+\]
+
+\[
+	F_n(t) = \frac{\#\{i = 1, 2, \cdots,n: X_i \leqslant t \}}{n}  \quad \forall t \in \mathbb{R}
+\]
+
+\[
+\sqrt{n}(F_n(t)-F(t)) \xrightarrow[n \rightarrow \infty]{(d)} \mathcal{N}_d(0,F(t)(1-F(t)))
+\]
+
+\textbf{Kolmogorov-Smirnov}
+\[
+	d(F_n,F) = \sup_{t\in \mathbb{R}} |F_n(t) - F(t)|
+\]
+
+\textbf{Cramér-Von Mises}
+\[
+	d^2(F_n,F) = \int_{\mathbb{R}} [F_n(t) - F(t)]^2\mathrm{d}t
+\]
+
+\textbf{Anderson-Darling}
+\[
+	d^2(F_n,F) = \int_{\mathbb{R}} \frac{[F_n(t) - F(t)]^2}{F(t)(1-F(t))}\mathrm{d}t
+\]
+
+
+\textbf{Kolmogorov-Lilliefors test:special distribution re-calculated}
+\[
+	T_n = \sup_{t\in \mathbb{R}} |F_n(t)-\Phi_{\hat{\mu},\hat{\sigma}^2}(t)|
+\]
+
+\[
+\Phi_{\hat{\mu},\hat{\sigma}^2}(t) \mbox{ is CDF of } \mathcal{N}(\hat{\mu},\hat{\sigma}^2) \quad \hat{\mu} = \bar{X}_n \quad \hat{\sigma}^2 = S^2_n
+\]
+
+\textbf{$\chi^2$ goodness-of-fit}
+\[
+H_0: p_j = p_j(\theta) \quad j = 1,2, \cdots, K\\
+\]
+
+\[
+T_n = n \sum_{j=1}^{K}\frac{(\hat{p}_j-p_j(\theta))^2}{p_j(\theta)}
+\]
+
+for infinite, choose the number of bins $K$ and the bins $A_1, A_2, \cdots, A_k$
+and the calculation for those special bins.
+
+
+\section{Linear regression}
+
+\textbf{settings}
+\[
+\mathbf{Y} = \mathbf{X}\beta + \mathbf{\epsilon}
+\]
+
+\[
+\mathbf{Y} = (Y_1,Y_2,\cdots,Y_n) \in \mathbb{R}^{n\times 1}
+\]
+
+\[
+\mathbf{\epsilon} = (\epsilon_1,\epsilon_2,\cdots,\epsilon_n) \in \mathbb{R}^{n\times 1} \sim \mathcal{N}_n(0,\sigma^2I_n)
+\]
+
+\[
+\mathbf{X} \in \mathbb{R}^{n\times p} \quad \beta \in \mathbb{R}^{p\times 1} \]
+
+\[
+\mathbf{X} = (X_1,X_2,\cdots,X_p) \quad X_i \in \mathbb{R}^{n \times 1}\]
+
+\[
+ \mathrm{cov}(X_i,\epsilon) = 0
+\]
+
+
+\[
+\hat{\beta} = \argmin_{t \in \mathbb{R}^{p \times 1}} \|\mathbf{Y} - \mathbf{X}t \|^2_2
+\]
+
+\textbf{results:}
+\[
+\hat{\beta} = (X^TX)^{-1}X^TY
+\]
+
+\[
+\hat{\beta} \sim \mathcal{N}_p(\beta,\sigma^2(\mathbf{X}^T\mathbf{X})^{-1})
+\]
+
+\[
+\mathbb{E}[\|\hat{\beta}-\beta\|^2_2] = \sigma^2 \mathrm{tr}\left[ (\mathbf{X}^T\mathbf{X})^{-1}\right]
+\]
+
+\[
+\mathbb{E}[\|\mathbf{Y}-\mathbf{X}\hat{\beta}\|^2_2] = \sigma^2 (n-p)
+\]
+
+\[
+\hat{\sigma}^2 = \frac{1}{n-p}\|\mathbf{Y}-\mathbf{X}\hat{\beta}\|^2_2
+\]
+
+\textbf{Theorem}
+\[
+(n-p)\frac{\hat{\sigma}^2}{\sigma^2} \sim \chi^2_{n-p}\quad  \mbox{and} \quad \hat{\beta} \indep \hat{\sigma}^2
+\]
+
+\textbf{Significance tests}
+\[
+\begin{cases}
+H_0: \beta_j = 0 \\
+H_1: \beta_j \neq 0 \\
+\end{cases}
+\]
+
+\[
+\frac{\hat{\beta}_j-\beta_j}{\sqrt{\hat{\sigma}^2 \gamma_j}} \sim t_{n-p} \quad \gamma_j = \left[ (\mathbf{X}^T\mathbf{X})^{-1}\right]_{jj}
+\]
+
+under $H_0$
+
+\[
+T_n^{(j)} = \frac{\hat{\beta}_j}{\sqrt{\sigma^2 \gamma_j}} 
+\]
+
+\textbf{more test}
+\[
+\begin{cases}
+H_0: G\beta = \lambda \\
+H_1: G\beta \neq \lambda \\
+\end{cases}
+\]
+
+\[
+G \in \mathbb{R}^{k \times p} \quad \lambda \in \mathbb{R}^{k \times 1}
+\]
+
+\[
+G\hat{\beta} - \lambda \sim \mathcal{N}_k(0,\sigma^2G(\mathbf{X}^T\mathbf{X})^{-1}G^T)
+\]
+
+\[
+(G\hat{\beta} - \lambda)^T\left[\sigma^2G(\mathbf{X}^T\mathbf{X})^{-1}G^T\right]^{-1}(G\hat{\beta} - \lambda) \sim \chi^2_k
+\]
+
+\[
+\arraycolsep=1.4pt
+\def\arraystretch{2.5}
+\begin{array}{rcl}
+S_n  & = & \displaystyle  \frac{1}{\hat{\sigma}^2}\frac{(G\hat{\beta} - \lambda)^T\left[G(\mathbf{X}^T\mathbf{X})^{-1}G^T\right]^{-1}(G\hat{\beta} - \lambda)}{k} \\
+ 	 & = & \displaystyle \frac{(G\hat{\beta} - \lambda)^T\left[\sigma^2G(\mathbf{X}^T\mathbf{X})^{-1}G^T\right]^{-1}(G\hat{\beta} - \lambda)}{k} \left/ \frac{\hat{\sigma}^2}{\sigma^2} \right.\\
+\end{array}
+\]
+
+\[
+	S_n \sim \frac{\chi^2_k}{k}\left /\frac{\chi^2_{n-p}}{n-p} \right. = F_{k,n-p}
+\]
+
+\textbf{if $\mathrm{rank}(\mathbf{X}) < p$}
+
+use Moore-Penrose pseudo inverse
+\[
+	\hat{\mathbf{Y}} = \mathbf{X}( \mathbf{X}^T\mathbf{X})^+\mathbf{X^T}\mathbf{Y}
+\]
+
+$k = \mathrm{rank}(\mathbf{X})$
+\[
+	\frac{\|\hat{\mathbf{Y}}-\mathbf{Y}\|^2_2}{\sigma^2} \sim \chi^2_{n-k}
+\]
+
+\[
+\|\hat{\mathbf{Y}}-\mathbf{Y}\|^2_2 \indep \hat{\mathbf{Y}}
+\]
+
+\[
+\mathbb{E}\left[\|\hat{\mathbf{Y}}-\mathbf{Y}\|^2_2 \right] = (n -k) \sigma^2
+\] 
+
+\[
+\hat{\sigma}^2 = \frac{1}{n-k}\|\hat{\mathbf{Y}}-\mathbf{Y}\|^2_2
+\] 
+
+\textbf{if $p > n$}
+
+spares cases, only a few $\beta$ is not zeros.
+
+for $S \subset \{1,2,\cdots, p\}$
+\[
+\hat{\beta}_S \in \argmin_{t \in \mathbb{R}^{|S|}} \|\mathbf{Y}-\mathbf{X}_St\|^2_2
+\]
+
+\[
+\hat{\beta}_S = \argmin_{t \in \mathbb{R}^{|S|}} \|\mathbf{Y}-\mathbf{X}_St\|^2_2 + \lambda|S|
+\]
+
+$\lambda = 2\hat{\sigma}^2 \Rightarrow$ AIC criterion.
+
+$\lambda = \hat{\sigma}^2\mathrm{log}n \Rightarrow$ BIC criterion.
+
+
+\[
+\hat{\beta}_S^0 = \argmin_{b \in \mathbb{R}^p} \|\mathbf{Y}-\mathbf{X}b\|^2_2 + \lambda\|b\|_0
+\]
+
+\[
+\hat{\beta}_S^1 = \argmin_{b \in \mathbb{R}^p} \|\mathbf{Y}-\mathbf{X}b\|^2_2 + \lambda\|b\|_1
+\]
+
+
+\textbf{Intervals 1D}
+
+\textit{Confidence Intervals or Standard Error of the regression line}
+\[
+CI_y = \sqrt{
+\left(\frac{1}{n-2}\sum_{i=1}^{n}(y_i-\hat{y}_i)^2 \right)
+\left(\frac{1}{n}+\frac{(x-\bar{x})^2}{\sum_{i=1}^{n}(x_i-\bar{x})^2}
+\right)
+}
+\]
+
+\[
+\hat{y}_h \pm CI_y t_{\alpha/2,n-2}
+\]
+
+\textit{Prediction Intervals}
+\[
+PI_y = \sqrt{
+\left(
+1+\frac{1}{n}+\frac{(x-\bar{x})^2}{\sum_{i=1}^{n}(x_i-\bar{x})^2}
+\right)\left(\frac{1}{n-2}\sum_{i=1}^{n}(y_i-\hat{y}_i)^2 \right)
+}
+\]
+
+\[
+\hat{y}_h \pm PI_y t_{\alpha/2,n-2}
+\]
+
+\textit{Confidence Interval of the Estimated parameters}
+\[
+	\beta_1 \pm \left(
+	\sqrt{\frac{1}{n-2}\frac{\sum_{i=1}^{n}(y_i-\hat{y}_i)^2}{\sum_{i=1}^{n}(x_i-\bar{x})^2}}
+	\right)t_{\alpha/2,n-2}
+\]
+
+
+\textit{some details}
+\[
+	X = [ \mathbf{1} \quad X_0] \in \mathbb{R}^{n \times 2}
+\]
+
+\[
+	X^TX = \left(\begin{matrix}
+	n & \sum_{i=1}^{n} x_i \\
+	\sum_{i=1}^{n} x_i & \sum_{i=1}^{n} x_i^2
+	\end{matrix}\right)
+\]
+
+\[
+|X^TX| = n\sum_{i=1}^n (x_i - \bar{x})^2
+\]
+
+\[
+	(X^TX)^{-1} = \frac{1}{n\sum_{i=1}^n (x_i - \bar{x})^2}\left(\begin{matrix}
+	\sum_{i=1}^{n} x_i^2 & -\sum_{i=1}^{n} x_i \\
+	-\sum_{i=1}^{n} x_i & n
+	\end{matrix}\right)
+\]
+
+\[
+	(1 \quad g)(X^TX)^{-1} \left(\begin{matrix}
+	1 \\ g
+	\end{matrix}\right) = \frac{\sum_{i=1}^{n}(x_i-g)^2}{ n\sum_{i=1}^n (x_i - \bar{x})^2}
+\]
+
+\textbf{Intervals in general case}
+
+\textit{Confidence Intervals or Standard Error of the regression line}
+
+\[
+\mathrm{var}(Y_G) = \hat{\sigma}^2G(\mathbf{X}^T\mathbf{X})^{-1}G^T
+\]
+
+\textit{Confidence Interval of the Estimated parameters}
+\[
+\mathrm{var}(\hat{\beta}_j) = \hat{\sigma}^2\gamma_j \quad \gamma_j = [(X^TX)^{-1}]_{jj}
+\]
+
+\textit{Prediction Intervals}
+\[
+\mathrm{PI}(Y_G) = \mathrm{var}(\epsilon) + \mathrm{var}(Y_G)
+\]
+
+\[
+\mathrm{PI}(Y_G) = \hat{\sigma}^2(I_k+G(\mathbf{X}^T\mathbf{X})^{-1}G^T)
+\]
+
+\section{Generalized Linear Models}
+
+\textbf{Linear model}
+\[
+	Y|X \sim \mathcal{N}(\mu(X),\sigma^2I)
+\]
+\[	
+	\mathbb{E}[Y|X] = \mu(X) = X^T\beta
+\]
+
+\textbf{exponential family distribution}
+\[
+\{ \mathbb{P}_\theta : \theta \in \Theta \}, \quad \Theta \subset \mathbb{R}^k
+\]
+
+\[
+	p_\theta(x) = \mathrm{exp}\left[\sum_{i=1}^{k} \eta_i(\theta)T_i(x) - B(\theta) \right]h(x)
+\]
+
+\[
+\eta_i,B: \mathbb{R}^k \rightarrow \mathbb{R} ,\quad \theta \in \mathbb{R}^k
+\]
+\[
+T_i,h: \mathbb{R}^q \rightarrow \mathbb{R}	,\quad x \in \mathbb{R}^q
+\]
+
+\textbf{Canonical exponential family ($\phi$ is known)}
+\[
+f_\theta(y) = \mathrm{exp}\left(\frac{y\theta-b(\theta)}{\phi} + c(y,\phi)\right)
+\]
+
+\[
+	\ell(\theta) = \log f_\theta(y)
+\]
+
+
+\[
+	\int f_\theta(y)dy = 1 \Rightarrow	
+	\mathbb{E}\left[\frac{\partial\ell}{\partial\theta}\right] = 0 \quad \mathbb{E}\left[\frac{\partial^2\ell}{\partial\theta^2} + (\frac{\partial\ell}{\partial\theta})^2\right] = 0
+\]
+
+\[
+	\ell(\theta) = \frac{y\theta-b(\theta)}{\phi} + c(y,\phi)
+\]
+
+\[
+	\frac{\partial\ell}{\partial\theta} = \frac{y-b'(\theta)}{\phi} \quad\quad\quad
+\frac{\partial^2\ell}{\partial\theta^2} + (\frac{\partial\ell}{\partial\theta})^2 = -\frac{b''(\theta)}{\phi} + \left(\frac{y-b'(\theta)}{\phi}\right)^2
+\]
+
+\[
+\mathbb{E}[y] = b'(\theta) \quad \mathrm{Var}[y] = \phi b''(\theta)
+\]
+
+\textbf{Link function}
+\[
+	\mu = \mathbb{E}\left[ Y|X\right] \quad \mu = b'(\theta) \quad g(\mu) = X^T\beta
+\]
+
+a pair of $b(\theta)$ and $g(\mu)$ define a GLM.
+
+
+\hspace{1cm}
+
+\textbf{Canonical Link}
+\[
+	g(\mu) = \theta
+\]
+
+\[
+	\mu = b'(\theta) \Rightarrow g(\mu) = [b']^{-1}(\theta)
+\]
+
+\[
+\arraycolsep=2.5pt
+\def\arraystretch{1.5}
+\begin{array}{c|ccc}
+ & b(\theta) & b'(\theta) & g(\mu) \\
+ \hline
+ \mbox{Normal} & \theta^2/2 & \theta & \mu \\
+ \mbox{Possion} & \exp(\theta) & \exp(\theta) & \log\mu \\
+ \mbox{Bernouli} & \log(1+e^\theta) & \frac{e^\theta}{1+e^\theta}& \log\frac{\mu}{1-\mu} \\
+ \mbox{Gamma} & -\log(-\theta) & -\frac{1}{\theta} & - \frac{1}{\mu} \\
+\end{array}
+\]
+
+using canonical link, $b(\theta)$ or $g(\mu)$ itself defines a GLM
+
+\hspace{1cm}
+
+\textbf{GLM Log-likelihood}
+\[
+	\theta_i = [b']^{-1}(\mu_i) = h(X_i^T\beta)
+\]
+
+\[
+	h = [b']^{-1} \circ g^{-1} = (g \circ b')^{-1}
+\]
+
+if $g$ is canonical link, $h$ is \textit{identity}
+
+try to figure out $\beta$ by $X$ using log-likelihood
+
+\begin{align*}
+	\ell_n(\beta;Y,X) & = \sum_i \frac{Y_i \theta_i - b(\theta_i) }{\phi} \\
+	 & = \sum_i \frac{Y_i h(X_i^T\beta) - b(h(X_i^T\beta))}{\phi}
+\end{align*}
+
+to maximize the log likelihood. first and second order differentials are needed. or the gradient and the hessian.
+
+
+\begin{align*}
+	\frac{\partial \ell_n}{\partial \beta_j} & = \sum_i^n \frac{\partial \ell_n}{\partial \theta_i} \frac{\partial \theta_i}{\partial \beta_j}  \\
+	& = \sum_i^n \frac{Y_i-\mu_i}{\phi} h'(X_i^T\beta)X_i^j
+\end{align*}
+
+$X_i^j$ the $j^{th}$ component of $X_i$.
+
+\[
+	\frac{\partial^2 \ell_n}{\partial \beta_j\beta_k}  = \sum_{i = 1}^{n} \frac{Y_i-\mu_i}{\phi} h''(X_i^T\beta)X_i^jX_i^k -\frac{1}{\phi}\sum_{i = 1}^{n} \frac{\partial \mu_i}{\partial \beta_k}h'(X_i^T\beta)X_i^j
+\]
+
+\[
+	\frac{\partial \mu_i}{\partial \beta_k} = b''(\theta_i)h'(X_i^T\beta)X_i^k
+\]
+
+
+\begin{align*}
+	I_{jk}(\theta) & = -\mathbb{E}\left[\nabla^2 \ell_n(\beta)\right]_{jk} \\
+		& = -\frac{1}{\phi}\sum_{i = 1}^{n}  b''(\theta)[h'(X^T\beta)]^2X_i^jX_i^k
+\end{align*}
+
+\[
+	I_{jk}(\theta) = -\sum_{i = 1}^{n}  \frac{h'(X_i^T\beta)}{\phi g'(\mu_i)} X_i^jX_i^k
+\]
+
+\begin{center}
+\begin{tikzpicture}[x=4cm,y=3cm]
+
+	\node (x) at (0,1) { $X_i^T \beta$};
+	\node (th)  at (1,1) {$\theta_i$};
+	\node (mu) at (1,0) {$\mu_i$};
+	
+	\graph [no placement]{
+		(x) ->  [ "$h$" ](th);
+		(x) <-  [ "$g$" ](mu);
+		(th) -> [ "$b'$" ](mu);
+	};
+\end{tikzpicture}
+\end{center}
+
+\[
+g'(\mu)b''(\theta)h'(X^T\beta)=1
+\]
+
+\[
+\frac{\partial \mu}{\partial \beta_j}= \frac{X^j}{g'(\mu)}  \quad\quad  \frac{\partial \theta}{\partial \beta_j} = h'(X^T \beta ) X^j
+\]
+
+
+\textbf{Fisher-scoring}
+
+the idea is using the expectation of the hessian instead of the real hessian. in the hessian, the first part will disappeared after taking the expectation. but if using canonical link, $h''$ will vanish automatically any way.
+
+\[
+	x^{(k+1)} = x^{(k)} - [\nabla^2 f(x^{(k)})]^{-1}\nabla f(x^{(k)})
+\]
+
+
+\[
+	\mathbb{E}[\nabla^2 \ell_n(\theta^{(k)})] = -I(\theta^{(k)})
+\]
+
+\[
+\theta^{(k+1)} = \theta^{(k)} + I(\theta^{(k)})^{-1}\nabla \ell_n(\theta^{(k)})
+\]
+
+\end{document}
+
+
+
+
+
+
+
+
+
+
+
+
+
+

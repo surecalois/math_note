@@ -1,0 +1,336 @@
+\documentclass[12pt,a4paper]{article}
+\usepackage[utf8]{inputenc}
+\usepackage{amsmath}
+\usepackage{amssymb}
+
+\title{Deep Learning Notes}
+\author{surecalois}
+
+\begin{document}
+\maketitle
+
+\section{convergent}
+Gradient descent (this is the first paragrape, so it doesn't indent)
+\[
+\theta_{k+1}= \theta_k - \eta_k [\frac{1}{n}\sum_{i=1}^{n} \nabla f(x_i,\theta_k)]
+\]
+
+stochastic gradient descent
+\[
+\theta_{k+1}= \theta_k - \eta_k \nabla f(x_i,\theta_k)
+\]
+
+
+i randomly from [1,n]
+
+
+Iterations is the number of batches of data the algorithm has seen (or simply the number of passes the algorithm has done on the dataset). Epochs is the number of times a learning algorithm sees the complete dataset.
+
+\section{linear regression}
+\[
+	Y = \beta_0+\beta_1X_1 + \beta_2X_2
+\]
+
+
+\section{logistic regression}
+\[
+	Y = \frac{1}{1+e^{-(\beta_0+\beta_1X_1 + \beta_2X_2)}}
+\]
+or
+\[
+\mathbf{logit}(Y) = \beta_0+\beta_1X_1 + \beta_2X_2
+\]
+where
+\[
+	\mathbf{logit}(p) = \log\frac{p}{1-p}
+\]
+
+\[
+	L = L(y_1, y_2, ..., y_n|Y_1,Y_2,...,Y_n)
+\]
+
+\[
+	\frac{\partial L}{\partial y_i} = 2(y_i - Y_i)
+\]
+
+\[
+	y_i = \sigma(z_i)
+\]
+
+\[
+	\frac{dy_i}{dz_i} = y_i(1-y_i)
+\]
+
+\[
+	z_i = w_{ij}x^j
+\]
+
+But,we are not trying this
+\[
+	\frac{\partial z_i}{\partial x^j} = w_{ij}
+\]
+
+Instead, $x^j$ is fixed, but $w_{ij}$ is one we need to change
+
+\[
+	\frac{\partial z_i}{\partial w_{ij}} = 
+\]
+\section{multiple logistic regression}
+
+
+\section{notations}
+
+\subsection{forward}
+the first layer: input layer
+\[
+a^{(1)} = x = \begin{bmatrix}
+x_1 \\ x_2 \\ \vdots \\ x_n
+\end{bmatrix} \in \mathbb{R}^{s_1} = \mathbb{R}^{n}\quad
+\hat{a}^{(1)} = \begin{bmatrix}
+1 \\ a^{(1)}
+\end{bmatrix}
+\]
+
+the dataset contains m enteries
+\[
+x = x^{(1)}, x^{(2)}, \cdots, x^{(m)}
+\]
+the $l+1$ layer: hidden layer $(l = 1 \cdots L-1)$
+
+\[
+z^{(l+1)} = \Theta^{(l)}\hat{a}^{(l)} \quad 
+\Theta^{(l)} \in \mathbb{R}^{s_{l+1} \times (1+s_{l})}
+\]
+
+\[
+a^{(l+1)} = \sigma(z^{(l+1)}) \in \mathbb{R}^{s_{l+1}}\quad
+\hat{a}^{(l+1)} = \begin{bmatrix}
+1 \\ a^{(l+1)} 
+\end{bmatrix}
+\]
+
+$\sigma(\cdot)$ is some non-linear function maps the input(s) to the output(s) 
+
+
+\[
+h_{\Theta}(x) = a^{L} \in \mathbb{R}^{s_L} = \mathbb{R}^{K}
+\]
+
+\[
+\Theta = \{\Theta^{(1)},\Theta^{(2)},\cdots,\Theta^{(L-1)}\}
+\]
+
+
+\subsection{backward}
+
+the loss function
+\[
+\mathcal{L}(\Theta) = \frac{1}{m}\sum_{i=1}^{m}E^{(i)}
+\]
+\[
+E^{(i)} = E(h_{\Theta}(x^{(i)}))
+\]
+
+\[
+\frac{\partial E}{\partial \Theta^{(l)}}  \quad 
+\frac{\partial E}{\partial z^{(l)}} 
+\]
+
+\[
+j = 1,2, \cdots,  n \quad and \quad l = 1,2, \cdots, L-1
+\]
+
+\[
+\delta^{(l)} = 
+\frac{\partial E}{\partial z^{(l)}}  = \frac{\partial E}{\partial z^{(l+1)}}\frac{\partial z^{(l+1)}}{\partial z^{(l)}} = \delta^{(l+1)}\frac{\partial z^{(l+1)}}{\partial z^{(l)}}
+\]
+
+\[
+\frac{\partial z^{(l+1)}}{\partial z^{(l)}} = \frac{\partial \Theta^{(l)}\hat{a}^{(l)}}{\partial z^{(l)}} = \Theta^{(l)}\frac{\partial \hat{a}^{(l)}}{\partial z^{(l)}}
+\]
+
+\[
+\delta^{(l)} = 
+\frac{\partial E}{\partial z^{(l)}}  =\delta^{(l+1)}\Theta^{(l)}\frac{\partial \hat{a}^{(l)}}{\partial z^{(l)}}
+\]
+
+\[
+\frac{\partial E}{\partial \Theta^{(l)}} = \frac{\partial E}{\partial  z^{(l+1)}}\frac{\partial z^{(l+1)}}{\partial \Theta^{(l)}} = \delta^{(l+1)}\frac{\partial z^{(l+1)}}{\partial  \Theta^{(l)}} = \delta^{(l+1)}\frac{\partial \Theta^{(l)}\hat{a}^{(l)}}{\partial  \Theta^{(l)}}
+\]
+
+\[
+\frac{\partial E}{\partial \Theta^{(l)}} = \hat{a}^{(l)}\delta^{(l+1)}
+\]
+
+\[
+E \in \mathbb{R}, \quad z^{(l)} \in \mathbb{R}^{s_l \times 1},\quad \hat{a}^{(l)} \in \mathbb{R}^{(1+s_l) \times 1}, \quad  \Theta^{(l)} \in \mathbb{R}^{s_{l+1} \times (1+s_{l})}
+\]
+
+\[
+\delta^{(l)} = \frac{\partial E}{\partial z^{(l)}}  \in \mathbb{R}^{1 \times s_l}, \quad
+\frac{\partial z^{(l+1)}}{\partial z^{(l)}} \in  \mathbb{R}^{s_{l+1} \times s_l} \quad
+\frac{\partial E}{\partial \Theta^{(l)}}  \in \mathbb{R}^{(1 + s_{l}) \times s_{l+1}}
+\]
+
+
+\[
+\frac{\partial \Theta^{(l)}\hat{a}^{(l)}}{\partial  \Theta^{(l)}} \in  \mathbb{R}^{s_{l+1}\times (1 + s_{l}) }\times \mathbb{R}^{(1+s_l) \times 1} \times \mathbb{R}^{(1 + s_{l}) \times s_{l+1}}
+\]
+
+
+\[
+\frac{\partial \Theta^{(l)}\hat{a}^{(l)}}{\partial z^{(l)}} \in \mathbb{R}^{s_{l+1} \times (1+s_{l})}\times \mathbb{R}^{(1 + s_{l}) \times s_{l}}
+\]
+
+
+
+\section{in components}
+to free up the sup space drop the layer infor into the square bracket.\\
+the subscript i will be the $i^{th}$ component of the input (vector space)
+the superscript i will be the $i^{th}$ component of the parameter (dual space)
+\[
+a[1] = x = x_i  \quad i \in [1,s_1=n]
+\]
+
+\[
+\hat{a}[1] = x_i  \quad i \in [0,s_1=n] \quad x_0 = 1
+\]
+
+
+\[
+z[l+1]_{j} = \Theta[l]^{i}_{j}\hat{a}[l]_{i}, \quad i \in [0,s_l], \quad j \in [1,s_{l+1}]
+\]
+
+most likely, the $\mathbf{\sigma}$ will just map component-wise, instead of have too much interaction between components
+\[
+a[l+1]_{j} = \mathbf{\sigma}[l](z[l+1]_j)  \quad j \in [1,s_{l+1}] \quad a[l+1]_0 = 1
+\]
+
+
+\[
+h_{\Theta}(x)_j = a[L]_j \quad j \in [1,s_L=K]
+\]
+
+$\Theta$ just a notion to mark all the current parameters:
+\[
+\Theta[l]^{i}_{j}, \quad l \in [1,L-1], \quad i \in [0,s_l], \quad j \in [1,s_{l+1}]
+\]
+
+
+\[
+E:\mathbb{R}^{s_L} \mapsto \mathbb{R}
+\]
+
+\[
+E = E(h_\Theta(x)_j) \in \mathbb{R}
+\]
+
+\[
+\delta[L]^j = \frac{\partial E}{\partial z[L]_j} = \frac{\partial E}{\partial a[L]_j}\frac{\mathbf{d} a[L]_j}{\mathbf{d}z[L]_j} = \frac{\partial E}{\partial a[L]_j}\mathbb{\sigma'}[L](z[L]_j)
+\]
+
+\[
+\delta[l]^j = \frac{\partial E}{\partial z[l]_j} = \frac{\partial E}{\partial z[l+1]_j}\frac{\partial z[l+1]_j}{\partial z[l]_j}
+\]
+
+\[
+\delta[l]^j = \delta[l+1]^j\frac{\partial z[l+1]_j}{\partial z[l]_j}
+\]
+
+\[
+\frac{\partial E}{\partial \Theta[l]^{i}_{j}}=\frac{\partial E}{\partial z[l+1]_j}\frac{\partial z[l+1]_j}{\partial \Theta[l]^{i}_{j}}
+=\delta[l+1]^j\frac{\partial \Theta[l]^{i}_{j}\hat{a}[l]_{i}}{\partial \Theta[l]^{i}_{j}}
+\]
+
+\[
+\frac{\partial E}{\partial \Theta[l]^{i}_{j}}=\delta[l+1]^j\hat{a}[l]_{i}
+\]
+
+\section{in torch code}
+
+\begin{align*}
+a[l]_j &: module.output \\
+\Theta[l]_j &: module.weight\; and\; module.bias \\
+\delta[l]^j = \frac{\partial E}{\partial z[l]_j} &: module.gradInput \\
+\frac{\partial E}{\partial \Theta[l]^{i}_{j}}  &: module.gradWeight\; and\; module.gradBias
+\end{align*}
+
+
+\section{convolution in matrix form}
+\[
+x,y \in \mathbb{R}^{n \times 1} \quad h \in \mathbb{R}^{1 \times m} \quad (?:m < n)
+\]
+\[
+y = h*x = \begin{bmatrix}
+h_1 & 0 & \cdots & 0 & 0\\
+h_2 & h_1 & & \vdots & \vdots \\
+h_3 & h_2 & \cdots &0 &0 \\
+\vdots  & h_3 &\cdots & h_1 & 0 \\
+h_{m-1} &h_{m-2}&\cdots & h_2 & h_1 \\
+h_{m} & h_{m-1} & & \vdots & h_2 \\
+0 & h_{m} & \cdots & h_{m-2} & \vdots \\
+0 & 0 & \cdots & h_{m-1} & h_{m-2} \\
+\vdots & \vdots & & h_{m} & h_{m-1} \\
+0 & 0 & 0 & \cdots & h_{m}
+\end{bmatrix}\begin{bmatrix}
+x_1 \\ x_2 \\x_3 \\ \vdots \\ x_n
+\end{bmatrix}
+\]
+
+\[
+y_i = c^{j}_{i}x_j
+\]
+\[
+c^{j}_{i} = 0 \quad (j > i \;||\; i > j+m-1)
+\]
+\[
+c^{j}_{i} = h^k \quad (k = 1 + i - j)
+\]
+
+\[ j \in [1,n] \quad i \in [1,m+n -1]\]
+
+
+\[
+c^{j}_{i} = T^{j}_{k,i}h^k
+\]
+
+$T$ for Toeplitz
+\[
+T^{j}_{k,i} = \begin{cases}
+0, \quad i-j< 0 \;||\; i-j \geq m \\
+1,\quad k = 1 + i - j
+\end{cases}
+\]
+
+\section{Architecture}
+\subsection{CNN}
+\subsection{RNN}
+\subsection{LSTM}
+
+\section{Hessian}
+\[
+f(\theta) = f(\theta_k) + g_k^{T}(\theta-\theta_k) + \frac{1}{2}(\theta-\theta_k)^TH_k(\theta-\theta_k) + \cdots
+\]
+
+\[
+\nabla_{\theta}f(\theta) = g_k^{T} + H_k(\theta-\theta_k) + \cdots
+\]
+
+to find $\theta$ satisfies
+\[
+\nabla_{\theta}f = 0
+\]
+
+\[
+g_k + H_k(\theta - \theta_k) = 0
+\]
+
+\[
+\theta = \theta_k - H_k^{-1}g_k
+\]
+
+\[
+\theta_{k+1} = \theta_k - \eta H_k^{-1}g_k
+\]
+
+\end{document}

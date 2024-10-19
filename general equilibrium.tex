@@ -1,0 +1,209 @@
+\documentclass[12pt,a4paper]{article}
+\usepackage[utf8]{inputenc}
+\usepackage[english]{babel}
+\usepackage{amsmath}
+\usepackage{amsfonts}
+\usepackage{amssymb}
+\usepackage{lmodern}
+\usepackage[left=2cm,right=2cm,top=2cm,bottom=2cm]{geometry}
+\author{surecalois}
+\begin{document}
+\section{examples}
+\subsection{linear model}
+\begin{center}
+\begin{tabular}{cccccccc}
+  & $ex$ & $ey$ & $W$ & $W_x$     & $W_y$ & $x$ & $y$ \\[10pt]
+ A & 4 & 5000  & \( 100x-\frac{x^2}{2} + y \) & $ 100-x $ & 1 & 77 & 3321 \\[10pt]
+ B & 80 & 1000  & \( 30x-\frac{x^2}{2} + y \) & $ 30-x $ & 1 & 7 & 2679 \\[10pt]
+\end{tabular}
+\end{center}
+\subsection{log model}
+\begin{center}
+\begin{tabular}{cccccccc}
+  & $ex$ & $ey$ & $W$ & $W_x$     & $W_y$ & $x$ & $y$ \\[10pt]
+ A & 2 & 1  & \( \frac{3}{4}\mathrm{log}(x)+\frac{1}{4}\mathrm{log}(y) \) & $ \frac{3}{4x} $ & $\frac{1}{4y} $ & $ \frac{9}{5} $ & $ \frac{3}{2} $ \\[10pt]
+ B & 1 & 2  & \( \frac{2}{3}\mathrm{log}(x)+\frac{1}{3}\mathrm{log}(y) \) & $ \frac{2}{3x} $ & $\frac{1}{3y} $ & $ \frac{6}{5} $ & $ \frac{3}{2} $ \\[10pt]
+\end{tabular}
+\end{center}
+
+\subsection{equations}
+\begin{equation}
+x_a+x_b = x_a^e + x_b^e
+\end{equation}
+
+\begin{equation}
+y_a+y_b = y_a^e + y_b^e
+\end{equation}
+
+\begin{equation}
+p_xx_a+p_yy_a = p_xx_a^e+p_yy_a^e
+\end{equation}
+
+\begin{equation}
+p_xx_b+p_yy_b = p_xx_b^e+p_yy_b^e
+\end{equation}
+
+\begin{equation}
+\frac{1}{p_x}\frac{\partial W_a}{\partial x}\Big |_{x = x_a, y = y_a} = \frac{1}{p_y}\frac{\partial W_a}{\partial y}\Big |_{x = x_a, y = y_a} 
+\end{equation}
+
+\begin{equation}
+\frac{1}{p_x}\frac{\partial W_b}{\partial x}\Big |_{x = x_b, y = y_b}  = \frac{1}{p_y}\frac{\partial W_b}{\partial y}\Big |_{x = x_b, y = y_b} 
+\end{equation}
+
+\section{solve the first 4 equations}
+the first 4 equations cannot be solved using $p_x$ and $p_y$ as parameters.
+\[
+\sigma^ix_i = \sigma^ix_i^e
+\]
+
+\[
+\sigma^iy_i = \sigma^iy_i^e
+\]
+
+for each $i$
+\[
+p_xx_i+p_yy_i = p_xx_i^e + p_yy_i^e
+\]
+
+\[
+x_i = x_i^e + \frac{p_y}{p_x}(y_i^e - y_i)
+\]
+
+\[
+\sigma^ix_i = \sigma^ix_i^e + \frac{p_y}{p_x}(\sigma^iy_i^e - \sigma^iy_i)
+\]
+
+with the market cleaning, equation 1 and 2 implies each. 
+
+\section{the transaction}
+the utility function describes how the x and y exchange within one individual.
+the price describes how x and y exchange between agents.
+
+Agent $i$ has the motive to trade $x$ and $y$ when
+\[
+	F_i = \frac{1}{p_x}\frac{\partial W_i}{\partial x} - \frac{1}{p_y}\frac{\partial W_i}{\partial y} \neq 0
+\]
+
+so, if you set the price $(p_x,p_y)$, then you can find out how agent $i$ is going to trade
+
+
+
+but $\mathrm{d}W = 0$ is the same as $F_i = 0$ so,
+
+\[
+x_i \rightarrow x_i - \gamma\frac{\partial W_i}{\partial x_i}
+\]
+
+\[
+y_i \rightarrow y_i - \gamma\frac{\partial W_i}{\partial y_i}
+\]
+
+But $\mathrm{d}W = 0$ doesn't implies $\frac{\partial W}{\partial x} = \frac{\partial W}{\partial y} = 0$, so gradient desent won't work.
+
+
+
+mathcing the direction $(p_x,p_y)$ and $(\frac{\partial W}{\partial x} , \frac{\partial W}{\partial y})$
+
+\[
+n = \frac{(p_x,p_y)}{\sqrt{p_x^2 + p_y^2}}
+\]
+
+\[
+\Delta x =\frac{\frac{\partial W}{\partial x}p_x+\frac{\partial W}{\partial y}p_y}{p_x^2 + p_y^2}p_x - \frac{\partial W}{\partial x}  = -\frac{p_y^2p_x}{p_x^2 + p_y^2}F
+\]
+
+\[
+\Delta y = \frac{\frac{\partial W}{\partial x}p_x+\frac{\partial W}{\partial y}p_y}{p_x^2 + p_y^2}p_y - \frac{\partial W}{\partial y}  = \frac{p_x^2p_y}{p_x^2 + p_y^2}F
+\]
+
+\[
+ p_x\Delta x + p_y\Delta y  = 0
+\]
+
+so modified gradient descent?
+
+\section{three goods and more}
+the condition for agent $i$ to stop trading any goods
+\[
+\frac{1}{p_x}\frac{\partial W_i}{\partial x}  = \frac{1}{p_y}\frac{\partial W_i}{\partial y}  = \frac{1}{p_z}\frac{\partial W_i}{\partial z} = R_i
+\]
+
+\[
+p_xx_i+p_yy_i+p_zz_i = p_xx_i^e + p_yy_i^e+ p_zz_i^e
+\]
+
+\[
+\mathrm{d}W_i = \frac{\partial W_i}{\partial x}\mathrm{d}x_i + \frac{\partial W_i}{\partial y}\mathrm{d}y_i + \frac{\partial W_i}{\partial z}\mathrm{d}z_i
+\]
+
+\[
+\mathrm{d}W_i = p_xR_i\mathrm{d}x_i + p_yR_i\mathrm{d}y_i + p_zR_i\mathrm{d}z_i
+\]
+
+\[
+\mathrm{d}W_i = R_i(p_x\mathrm{d}x_i + p_y\mathrm{d}y_i + p_z\mathrm{d}z_i)=0
+\]
+
+
+\[
+u_i^x = p_xx_i \quad u_i^y = p_yy_i \quad u_i^z = p_zz_i
+\]
+
+
+note that $\mathrm{d}W = 0$ doesn't require
+\[
+\frac{\partial W}{\partial x} = \frac{\partial W}{\partial y} = \frac{\partial W}{\partial z} = 0
+\]
+
+
+\[
+\Delta x =\frac{W_xp_x+W_yp_y+W_zp_z}{p_x^2+p_y^2+p_z^2}p_x - W_x = \frac{W_yp_yp_x+W_zp_zp_x-W_x(p_y^2+p_z^2)}{p_x^2+p_y^2+p_z^2}
+\]
+
+\[
+\Delta y =\frac{W_xp_x+W_yp_y+W_zp_z}{p_x^2+p_y^2+p_z^2}p_y - W_y = \frac{W_zp_zp_y+W_xp_xp_y-W_y(p_z^2+p_x^2)}{p_x^2+p_y^2+p_z^2}
+\]
+
+\[
+\Delta z =\frac{W_xp_x+W_yp_y+W_zp_z}{p_x^2+p_y^2+p_z^2}p_z - W_z = \frac{W_xp_xp_z+W_yp_yp_z-W_z(p_x^2+p_y^2)}{p_x^2+p_y^2+p_z^2}
+\]
+
+\[
+ p_x\Delta x + p_y\Delta y + p_z\Delta z  = 0
+\]
+
+
+\section{exchange between Agents}
+when exchange between Agents, the goods conservation is required.
+
+\[
+\sigma^ix_i = \sigma^ix_i^e \quad \sigma^iy_i = \sigma^iy_i^e \quad \sigma^iz_i = \sigma^iz_i^e
+\]
+
+\[
+\sigma^i\Delta x_i = 0 \quad \sigma^i\Delta y_i = 0 \quad \sigma^i\Delta z_i = 0
+\]
+
+\[
+N_i  = \frac{\frac{\partial W_i}{\partial x}p_x+\frac{\partial W_i}{\partial y}p_y+\frac{\partial W_i}{\partial z}p_z}{p_x^2+p_y^2+p_z^2}
+\]
+
+
+\[
+\sigma^i(N_ip_x -\frac{\partial W_i}{\partial x} ) = 0 \quad \sigma^i(N_ip_y -\frac{\partial W_i}{\partial y} ) = 0
+\quad \sigma^i(N_ip_z -\frac{\partial W_i}{\partial z} ) = 0
+\]
+
+\[
+\frac{1}{p_x}\sigma^i\frac{\partial W_i}{\partial x} = \frac{1}{p_y}\sigma^i\frac{\partial W_i}{\partial y} = \frac{1}{p_z}\sigma^i\frac{\partial W_i}{\partial z} = \sigma^iN_i
+\]
+
+\[
+\frac{\sum \frac{\partial W_i}{\partial x}}{p_x} = \frac{\sum \frac{\partial W_i}{\partial y}}{p_y}
+= \frac{\sum \frac{\partial W_i}{\partial z}}{p_z}
+\]
+
+so, even individually the exchange is happen, current price direction can be calculated from the sum of utility gradient.
+
+\end{document}

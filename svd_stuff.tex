@@ -1,0 +1,280 @@
+\documentclass[12pt,a4paper]{article}
+\usepackage[utf8]{inputenc}
+\usepackage[english]{babel}
+\usepackage{amsmath}
+\usepackage{amsfonts}
+\usepackage{amssymb}
+\usepackage{lmodern}
+\usepackage[left=2cm,right=2cm,top=2cm,bottom=2cm]{geometry}
+
+\usepackage{parskip}
+
+\author{surecalois}
+\begin{document}
+\section{projection to a linear space}
+\subsection{the four spaces}
+matrix/function/transform
+\[
+A \in \mathbb{R}^{n\times m}\; : x \in  \mathbb{R}^{m \times 1} \mapsto y \in  \mathbb{R}^{n \times 1}
+\]
+null space/kernel
+\[
+N(A) = \mathrm{Ker}(A)= \{x|Ax = 0\} \subseteq \mathbb{R}^{m \times 1}
+\]
+rank space/column space/image
+\[
+R(A) = \{y = Ax| x \in  \mathbb{R}^{m \times 1}\} \subseteq  \mathbb{R}^{n \times 1} 
+\]
+\[or\]
+\[ R(A) = \mathrm{Im}(A) =  A( \mathbb{R}^{m \times 1} ) \subseteq  \mathbb{R}^{n \times 1}
+\]
+
+\textbf{dual world}\\
+matrix/function/transform
+\[
+A^T \in \mathbb{R}^{m\times n}\; : x \in  \mathbb{R}^{n \times 1} \mapsto y \in  \mathbb{R}^{m \times 1}
+\]
+null space/kernel
+\[
+N(A^T) = \mathrm{Ker}(A^T) = \{x|A^Tx = 0\} \subseteq \mathbb{R}^{n \times 1}
+\]
+rank space/column space/image
+\[
+R(A^T) = \{y = A^Tx| x \in  \mathbb{R}^{n \times 1}\} \subseteq  \mathbb{R}^{m \times 1} 
+\]
+\[or\]
+\[R(A^T) = \mathrm{Im}(A^T) =  A^T( \mathbb{R}^{n \times 1} ) \subseteq  \mathbb{R}^{m \times 1}
+\]
+
+\subsection{basic composition}
+\[
+\mathbb{R}^{n \times 1} = \mathrm{Im}(A)\oplus\mathrm{Ker}(A^T)
+\]
+\[
+\mathbb{R}^{m \times 1} = \mathrm{Im}(A^T)\oplus\mathrm{Ker}(A)
+\]
+
+
+\textbf{the two meet each}
+\[
+AA^T \in \mathbb{R}^{n \times n} : \mathbb{R}^{n\times 1} \mapsto \mathrm{Im}(A^T) \subseteq \mathbb{R}^{m \times 1} \mapsto \mathrm{Im}(A) \subseteq \mathbb{R}^{n \times 1}
+\]
+\[
+A^TA \in \mathbb{R}^{m \times m}: \mathbb{R}^{m\times 1} \mapsto \mathrm{Im}(A) \subseteq \mathbb{R}^{n \times 1} \mapsto \mathrm{Im}(A^T) \subseteq \mathbb{R}^{m \times 1}
+\]
+
+\[
+\mathrm{Ker}(A^T) = \{0_n\} \Rightarrow \mathrm{Ker}(AA^T) = \{0_n\}
+\]
+\[
+\mathrm{Ker}(A) = \{0_m\} \Rightarrow \mathrm{Ker}(A^TA) = \{0_m\}
+\]
+
+\textbf{overdetermine}
+$N > M , r = M$ 
+
+\textbf{underdetermine}
+$N < M , r = N$
+
+\textbf{invertible}
+$N=M=r$
+
+\section{SVD}
+\[
+A = U\Sigma V^T
+\]
+
+\[
+A, \Sigma \in \mathbb{R}^{N \times M} \quad U \in \mathbb{R}^{N \times N} \quad V \in \mathbb{R}^{M \times M}, 
+\]
+
+\[
+	\Sigma = \left[ \begin{array}{cc}
+	\Sigma_r & 0 \\ 0 & 0
+	\end{array}\right]
+\quad
+\Sigma_r =\mathrm{ diag}(\sigma_1, \sigma_2, \cdots, \sigma_r) \quad \Sigma_r \in \mathbb{R}^{r \times r}
+\]
+
+\[
+UU^T = U^TU = I_M \quad VV^T = V^TV = I_N
+\]
+
+\[
+A = U_r \Sigma_r V_r^T
+\]
+
+\[
+A^T = V\Sigma^TU^T = V_r\Sigma_rU_r^T
+\]
+
+\[
+U = \left[\begin{array}{cc}U_r & \tilde{U}_r\end{array}\right] 
+\quad
+V = \left[\begin{array}{cc}V_r & \tilde{V}_r\end{array}\right] 
+\]
+
+\[
+U_r \in \mathbb{R}^{N \times r} \quad \tilde{U}_r \in \mathbb{R}^{N \times (N-r)} \quad V_r \in \mathbb{R}^{M \times r} \quad \tilde{V}_r \in \mathbb{R}^{M \times (M-r)}
+\]
+
+\[
+U_rU_r^T = U_r^TU_r = I_r \quad V_rV_r^T = V_r^T V_r = I_r
+\]
+
+\[
+\tilde{U}_r\tilde{U}_r^T = \tilde{U}_r^T\tilde{U}_r = I_{N-r} \quad \tilde{V}_r\tilde{V}_r^T = \tilde{V}_r^T \tilde{V}_r = I_{M-r}
+\]
+
+\[
+U_r^T\tilde{U}_r = O_{r\times(N-r)} \quad \tilde{U}_r^TU = O_{(N-r)\times r} \quad V_r^T\tilde{V}_r = O_{r\times(M-r)} \quad \tilde{V}_r^TV = O_{(M-r)\times r} 
+\]
+
+\[
+AV_r = U_r\Sigma_r \in \mathbb{R}^{N \times r} \quad A\tilde{V}_r = O_{N\times(M-r)}
+\]
+
+\[
+A^TU_r = V_r\Sigma_r \in \mathbb{R}^{M \times r} \quad A^T\tilde{U}_r = O_{M\times(N-r)}
+\]
+
+\[
+\mathrm{Im}(A) = \mathrm{span}\{U_r\} \quad \mathrm{Ker}(A^T) = \mathrm{span}\{\tilde{U}_r\} \quad \mathrm{span}\{U\} = \mathrm{Im}(A) \oplus \mathrm{Ker}(A^T)
+\]
+
+\[
+\mathrm{Im}(A^T) = \mathrm{span}\{V_r\} \quad \mathrm{Ker}(A) = \mathrm{span}\{\tilde{V}_r\} \quad \mathrm{span}\{V\} = \mathrm{Im}(A^T) \oplus \mathrm{Ker}(A)
+\]
+
+\[
+AA^T = U_r\Sigma_rV_r^TV_r\Sigma_rU_r^T = U_r\Sigma_r^2U_r^T
+\]
+
+\[
+A^TA = V_r\Sigma_rU_r^TU_r\Sigma_rV_r^T = V_r\Sigma_r^2V_r^T
+\]
+
+\[
+\Sigma^+ = \left[\begin{array}{cc}
+\Sigma^+_r & 0 \\ 0 & 0
+\end{array}
+\right]\quad
+\Sigma^+_r = \mathrm{diag}(\sigma_1^{-1},\sigma_2^{-1},\cdots,\sigma_r^{-1})
+\]
+
+\[
+A^+=V\Sigma^+U^T = V_r\Sigma^+_rU^T_r
+\]
+\[
+AA^+A = A \quad A^+AA^+ = A^+ \quad (AA^+)^T = AA^+ \quad (A^+A)^T = A^+A
+\]
+\[
+A^+\tilde{U}_r = 0 \quad \tilde{V}^T_rA^+ = 0
+\]
+
+\[
+(A^TA)^{-1} = V_r\Sigma_r^{-2}V_r^T 
+\quad (AA^T)^{-1} = U_r\Sigma_r^{-2}U_r^T
+\]
+
+\[
+(A^TA)^{-1}A = V_r\Sigma_r^{-1}U_r^T = A^+
+\quad A^T(AA^T)^{-1} = V_r\Sigma_r^{-1}U_r^T  = A^+
+\]
+
+\section{$Ax = b$}
+1. $N > M \;, r = M\quad \mathrm{Ker}(A) = \{0\}$
+\[ (A^TA)^{-1}A = A^+\]
+
+2. $N < M \;, r = N\quad \mathrm{Ker}(A^T) = \{0\}$
+\[ A^T(AA^T)^{-1} =A^+\]
+
+3. $N = M = r$
+\[
+	A^{-1} = A^+
+\]
+
+\[
+x  = x_{\parallel}  + x_{\bot}  \quad b = b_{\parallel} + b_{\bot}
+\]
+\[
+Ax  = Ax_{\parallel}  + Ax_{\bot} = Ax_{\parallel} 
+\]
+\[ A^Tb = A^Tb_{\parallel} + A^Tb_{\bot} = A^Tb_{\parallel}
+\]
+
+\[
+x \in \mathbb{R}^{m \times 1} \quad x_{\parallel} \in \mathrm{Im}(A^T) \quad x_{\bot} \in \mathrm{Ker}(A)
+\]
+\[
+b \in \mathbb{R}^{n \times 1} \quad b_{\parallel} \in \mathrm{Im}(A) \quad b_{\bot} \in \mathrm{Ker}(A^T)
+\]
+
+$\mathrm{Ker}(A) = \{0\}$
+\[
+A^TAx = A^Tb \Rightarrow x = (A^TA)^{-1}A^Tb = A^+b
+\]
+
+$\mathrm{Ker}(A^T) = \{0\}$
+\[
+Ax = b \Rightarrow Ax_{\parallel}=b \]
+\[ x_{\parallel} \in \mathrm{Im}(A^T) \Rightarrow x_{\parallel} = A^Tz \Rightarrow AA^Tz = b
+\]
+\[
+z = (AA^T)^{-1}b \Rightarrow x_{\parallel} = A^T(AA^T)^{-1}b = A^+b
+\]
+\[
+x = A^T(AA^T)^{-1}b + x_{\bot}= A^+b + x_{\bot}
+\]
+
+$\mathrm{Ker}(A) = \{0\}\;and\;\mathrm{Ker}(A^T) = \{0\}$
+\[
+Ax = b \Rightarrow x = A^{-1}b = A^+b
+\]
+
+\[
+x = A^+b + x_{\bot} = \left\{\begin{array}{ll}
+(A^TA)^{-1}A^Tb & \mathrm{Ker}(A) = \{0\} \\
+A^T(AA^T)^{-1}b + x_{\bot} & \mathrm{Ker}(A^T) = \{0\} \quad x_{\bot} \in \mathrm{Ker}(A) \\
+A^{-1}b & N=M=r
+\end{array}\right.
+\]
+
+\subsection{projection}
+\[
+\mathcal{P}_{\mathrm{Im}(A)} = U_rU_r^T = U_r\Sigma_rV^T_rV_r\Sigma^+_rU^T_r=  AA^+
+\]
+\[
+\mathcal{P}_{\mathrm{Im}(A^T)} = V_rV_r^T = V_r\Sigma^+_rU^T_rU_r\Sigma_rV^T_r=  A^+A
+\]
+\[
+\mathcal{P}_{\mathrm{Ker}(A^T)} = \tilde{U}_r\tilde{U}_r^T  \quad \mathcal{P}_{\mathrm{Ker}(A)} = \tilde{V}_r\tilde{V}_r^T 
+\]
+\[
+\mathcal{P}_{\mathrm{Im}(A)}\mathcal{P}_{\mathrm{Ker}(A^T)} = O_{N \times N} \quad \mathcal{P}_{\mathrm{Im}(A^T)}\mathcal{P}_{\mathrm{Ker}(A)} = O_{M \times M}
+\]
+\[
+\mathcal{P}_{\mathrm{Im}(A)}+ \mathcal{P}_{\mathrm{Ker}(A^T)} = I_N
+\]
+\[
+\mathcal{P}_{\mathrm{Im}(A^T)}+ \mathcal{P}_{\mathrm{Ker}(A)} = I_M
+\]
+\[
+\mathcal{P}_{\mathrm{Ker}(A^T)} = I_N-A^+A  \quad \mathcal{P}_{\mathrm{Ker}(A)} = I_M - AA^+
+\]
+
+\[
+\mathcal{P}_{Ax=0} = \mathcal{P}_{\mathrm{Ker}(A)} = I_M - A^+A
+\]
+\[
+\mathcal{P}_{Ax=b}(z) = A^+b+\mathcal{P}_{\mathrm{Ker}(A)}(z) = A^+b+z - A^+Az \quad z \in \mathbb{R}^{M\times 1}
+\]
+
+\[
+\mathcal{P}_{Ax=b}(z) = z- A^T(AA^T)^{-1}(Az - b)
+\]
+
+\[
+A\mathcal{P}_{Ax=b}(z) = Az - AA^T(AA^T)^{-1}(Az-b) = Az - Az + b = b
+\]
+\end{document}

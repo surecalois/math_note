@@ -1,0 +1,69 @@
+\documentclass[12pt,a4paper]{article}
+\usepackage[utf8]{inputenc}
+\usepackage[english]{babel}
+\usepackage{amsmath}
+\usepackage{amsfonts}
+\usepackage{amssymb}
+\usepackage{lmodern}
+\usepackage[left=2cm,right=2cm,top=2cm,bottom=2cm]{geometry}
+
+\usepackage[x11names, rgb]{xcolor}
+\usepackage{tikz}
+\usetikzlibrary{trees,decorations,arrows,shapes}
+%%\usepackage{tikz-qtree}
+
+
+\author{surecalois}
+
+
+\begin{document}
+\begin{tikzpicture}
+	[
+		sloped,grow = 0, sibling distance=3cm, 
+		every node/.style = {xshift = 2cm, shape=circle,align=center,draw ,minimum size=1.5cm},
+		level 1/.style={sibling distance=5cm},
+		level 2/.style={sibling distance=5cm}
+	]
+  
+  \node {investor}
+  	child{
+  		node {\$0} 
+  		child{ node {\$0}}
+  	}
+  	child{
+  		node (I) {\$10}
+  		child {
+			node (L) {\$0}
+  		}
+  		child {
+			node (M) {\$15}
+  		}
+  	};
+  	
+  \path[every node/.style={},sloped]
+  (I) edge node [above] {$\geqslant 90\%$} (M)
+  (I) edge node [above] {$<90\%$} (L);
+
+\end{tikzpicture}
+
+\begin{tikzpicture}[node distance=3cm, every node/.style = {xshift = 2cm, shape=circle,align=center,draw ,minimum size=1.5cm}]
+  
+  \node (R) {investor};
+  \node (I) [right of=R, above of=R] {\$10};
+  \node (M) [right of=I, above of=I] {\$15};
+  \node (L) [right of=I, below of=I] {\$0};
+  \node (o) [right of=R, below of=R] {\$0};
+  \node (O) [right of=o] {\$0};
+
+  
+  \path[->,every node/.style={},sloped]
+  (R) edge node [above] {invest} (I)
+  (R) edge node [above] {not invest} (o)
+  (o) edge (O)
+  (I) edge node [above] {$\geqslant 90\%$} (M)
+  (I) edge node [above] {$<90\%$} (L)
+  ;
+
+\end{tikzpicture}
+
+\end{document}

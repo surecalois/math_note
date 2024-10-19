@@ -1,0 +1,154 @@
+\documentclass[10pt,a4paper]{article}
+\usepackage[utf8]{inputenc}
+\begin{document}
+
+\newcommand{\nchoosek}[2]{\left(
+\begin{array}{c}
+#1 \\ #2
+\end{array}
+\right)}
+
+population maximum $N$
+
+sample maximum $M$
+
+sample size $k$
+
+$\mathrm{Pr}(m)$ is the probability of $m$ being the maximum of a sample with size $k$.
+
+\[
+E(M;k) = \sum_{m = 0}^N m\mathrm{Pr}(m)
+\]
+
+sample size of $k$
+\[
+\mathrm{Pr}(m) =\frac{\nchoosek{m-1}{k-1}}{\nchoosek{N}{k}}
+\]
+
+\[
+\mathrm{Pr}(m) = 0, \quad m<k
+\]
+
+\[
+m\nchoosek{m-1}{k-1} = \frac{m(m-1)!}{(m-k)!(k-1)!} = \frac{m!k}{(m-k)!k!} = k\nchoosek{m}{k}
+\]
+
+\[
+E(M;k) = \sum_{m = k}^N m\frac{\nchoosek{m-1}{k-1}}{\nchoosek{N}{k}} = \sum_{m = k}^N \frac{k\nchoosek{m}{k}}{\nchoosek{N}{k}}
+\]
+
+
+\[
+\nchoosek{N+1}{k+1}  =  \nchoosek{N}{k} + \nchoosek{N}{k+1}
+\]
+
+\[
+\begin{array}{rcl}
+\frac{N!}{(N-k)!k!} + \frac{N!}{(N-k-1)!(k+1)!} & = & \frac{N!(k+1)}{(N-k)!(k+1)!}+\frac{N!(N-k)}{(N-k)!(k+1)!} \\
+& = & \frac{N!(k+1)+N!(N-k)}{(N-k)!(k+1)!} \\
+& = & \frac{(N+1)!}{(N-k)!(k+1)!}
+\end{array}
+\]
+
+\[
+\begin{array}{rcl}
+\nchoosek{N+1}{k+1} & = & \nchoosek{N}{k} + \nchoosek{N}{k+1} \\
+& = & \nchoosek{N}{k} + \nchoosek{N-1}{k} + \nchoosek{N-1}{k+1} \\
+& \vdots & \\
+& = & \nchoosek{N}{k} + \nchoosek{N-1}{k} + \cdots + \nchoosek{k+1}{k} +\nchoosek{k+1}{k+1} \\
+& = & \sum_{m = k+1}^{N} \nchoosek{m}{k} + 1
+\end{array}
+\]
+
+\[
+\sum_{m = k}^N \nchoosek{m-1}{k-1} = \sum_{m = k+1}^N \nchoosek{m-1}{k-1} + 1
+\]
+
+\[
+\sum_{m = k+1}^N \nchoosek{m-1}{k-1} = \nchoosek{N-1}{k-1} + \cdots + \nchoosek{k}{k-1} = \nchoosek{N}{k} -1
+\]
+
+\[
+\sum_{m = k}^N \nchoosek{m-1}{k-1} =  \nchoosek{N}{k} -1 + 1
+\]
+
+\[
+\sum_{m = k}^N \mathrm{Pr}(m) = \sum_{m = k}^N \frac{\nchoosek{m-1}{k-1}}{\nchoosek{N}{k}}  = \frac{\nchoosek{N}{k}}{\nchoosek{N}{k}} = 1\\
+\]
+
+\[
+\sum_{m = k}^N \nchoosek{m}{k} = \sum_{m = k+1}^N \nchoosek{m}{k} + 1 = \nchoosek{N+1}{k+1} - 1 + 1
+\]
+
+
+\[
+E(M;k)  = \frac{k}{\nchoosek{N}{k}} \sum_{m = k}^N \nchoosek{m}{k}
+\]
+
+\[
+E(M;k)  = \frac{k}{\nchoosek{N}{k}}\nchoosek{N+1}{k+1}
+\]
+\[
+E(M;k)  = k \frac{(N-k)!k!}{N!}\frac{(N+1)!}{(N-k)!(k+1)!} = \frac{k(N+1)}{k+1}
+\]
+
+\[
+N = \frac{k+1}{k}E(M;k)  - 1
+\]
+
+
+\[
+\frac{k-1}{k}\sum_{j=0}^M \frac{1}{\nchoosek{j+x}{k}} = \frac{1}{\nchoosek{x-1}{k-1}} - \frac{1}{\nchoosek{M+x}{k-1}}
+\]
+
+\[
+\frac{k-1}{k}\frac{1}{\nchoosek{M+1+x}{k}} - \frac{1}{\nchoosek{M+x}{k-1}} = \frac{k-1}{k}\frac{k!(M+1+x-k)!}{(M+1+x)!} - \frac{(k-1)!(M+x-k+1)!}{(M+x)!}
+\]
+\[
+-\left[\frac{M+x+1}{k}-\frac{k-1}{k}\right]\frac{k!(M+1+x-k)!}{(M+1+x)!}=-\frac{M+1+x-(k-1)}{k}\frac{k!(M+1+x-k)!}{(M+1+x)!}
+\]
+\[
+\frac{M+1+x-(k-1)}{k}\frac{k!(M+1+x-k)!}{(M+1+x)!} = \frac{(k-1)!(M+1+x-(k-1))!}{(M+1+x)!}=\frac{1}{\nchoosek{M+1+x}{k-1}}
+\]
+\[
+\frac{k-1}{k}\frac{1}{\nchoosek{M+1+x}{k}} - \frac{1}{\nchoosek{M+x}{k-1}} = -\frac{1}{\nchoosek{M+1+x}{k-1}}
+\]
+
+\[
+\sum_{N = M}^{\infty} \frac{1}{\nchoosek{N}{k}} = \frac{k}{k-1}\frac{1}{\nchoosek{M-1}{k-1}}
+\]
+
+
+prior
+\[
+\mathrm{Pr}(N = K) = \left\{ \begin{array}{lc}
+\frac{1}{\Omega_2-\Omega_1} & \Omega_1 \leq K \leq \Omega_2 \\
+0 & \mathrm{else} 
+\end{array}\right.
+\]
+
+sample maximum $M$
+
+sample size $k$
+
+posterior
+\[
+\mathrm{Pr}(N = K) = \left\{ \begin{array}{cc}
+\frac{1}{\Omega}\frac{\nchoosek{M-1}{k-1}}{\nchoosek{K}{k}} & M \leq K \\
+0 & \mathrm{else} 
+\end{array}\right.
+\]
+
+\[
+\Omega = \sum_{K = M}^{\infty} \frac{\nchoosek{M-1}{k-1}}{\nchoosek{K}{k}} = \frac{k}{k-1}
+\]
+
+\[
+\mathrm{Pr}(N = K) = \left\{ \begin{array}{cc}
+\frac{k-1}{k}\frac{\nchoosek{M-1}{k-1}}{\nchoosek{K}{k}} & M \leq K \\
+0 & \mathrm{else} 
+\end{array}\right.
+\]
+
+
+\end{document}

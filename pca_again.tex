@@ -1,0 +1,434 @@
+\documentclass[12pt,a4paper]{article}
+\usepackage[english]{babel}
+\usepackage{amsmath}
+\usepackage{amsfonts}
+\usepackage{amssymb}
+\usepackage{mathtools}
+\usepackage{lmodern}
+\usepackage[left=2cm,right=2cm,top=2cm,bottom=2cm]{geometry}
+\author{surecalois}
+
+\begin{document}
+
+\section{PCA}
+\[
+\mathrm{minimize}\; \|A-XY\|^2_F
+\]
+\[
+A \in \mathbb{R}^{m\times n} \quad X \in \mathbb{R}^{m\times k} \quad Y\in \mathbb{R}^{k\times n}
+\]
+
+
+\textbf{Statistical View of PCA}
+\[
+	\mathbb{E}[x] = 0 \quad x \in \mathbb{R}^d
+\]
+\hspace{\parindent}or use:
+\[
+	x = x' - \mathbb{E}[x'] 
+\]
+
+project $x$ to $u_1$
+\[
+	y_1 = u_1^Tx \quad u_1^Tu_1 = 1 \quad \mathbb{E}[y] = 0
+\]
+\begin{align*}
+	\mathrm{var}(y_1) & = \mathbb{E}[y_1^Ty_1] \\
+		& = \mathbb{E}[y_1y_1^T] \\
+		& = u_1^T\mathbb{E}[xx^T]u_1 \\
+		& = u_1^T\Sigma_xu_1
+\end{align*} 
+\[
+\Sigma_x = \mathrm{cov}(x) = \mathbb{E}[xx^T]
+\]
+
+\[
+	\displaystyle \max_{u_1} u_1^T\Sigma_xu_1
+\]
+\[
+\mbox{s.t.} \quad u_1^Tu_1 = 1
+\]
+
+
+\textbf{Rank Minimization View of PCA}
+\[
+	\min_{\mu,A} \|X -\mu E^T -A \|_F^2
+\]
+\[
+	\mbox{s.t.} \quad \mathrm{rank}(A) = d \quad AE = 0
+\]
+
+
+if $XE = 0$
+
+\[
+	\min_{A} \|X-A \|_F^2
+\]
+\[
+	\mbox{s.t.} \quad \mathrm{rank}(A) = d
+\]
+
+\[
+	X = U_X \Sigma_X V_X^T \quad A = U_A \Sigma_A V_A^T
+\]
+
+\[
+	\min \| \Sigma_X - U_X^TU_A \Sigma_A V_A^TV_X\|_F^2
+\]
+
+\[
+	\min \| \Sigma_X - U\Sigma_A V^T\|_F^2
+\]
+
+\[
+	\min \| \Sigma_X\|_F^2 + \| U\Sigma_A V^T\|_F^2 - 2<\Sigma_X,U\Sigma_A V^T>
+\]
+
+\[
+	\min \| \Sigma_X\|_F^2 + \| \Sigma_A \|_F^2 - 2<\Sigma_X,U\Sigma_A V^T>
+\]
+
+fix $\Sigma_A$
+\[
+	\max_{U,V} <\Sigma_X,U\Sigma_A V^T>
+\]
+
+\[
+	<F,G> \leq \sum_{i=1}^{n} \sigma_i(F)\sigma_i(G)=<\sigma(F),\sigma(G)>
+\]
+
+\[
+	\max_{U,V} <\Sigma_X,U\Sigma_A V^T> = <\Sigma_X,\Sigma_A>
+\]
+
+\[
+	U = I \quad V^T = I \Rightarrow U_X^TU_A=I \quad V_A^TV_X =I
+\]
+
+\[
+	U_A = U_X \quad V_A = V_X
+\]
+
+\[
+	\min_{\Sigma_A} \| \Sigma_X - \Sigma_A\|_F^2
+\]
+
+
+\textbf{Geometric View of PCA}
+\[
+S = \{x: x = \mu + Uy \quad \mu \in \mathbb{R}^D \quad U \in \mathbb{R}^{D \times d} \quad y \in \mathbb{R}^d\}
+\]
+
+\[
+	\min_{\mu,U,y_i} \sum_{j=1}^{n} \|x_j - \mu - Uy_j\|_2^2
+\]
+
+\[
+	\mbox{s.t.} \quad \sum_{j=1}^{n} y_j = 1 \quad U^TU = 1
+\]
+
+\[
+	\min_{\mu,U,Y} \|X - \mu E^T - UY\|_F^2
+\]
+
+\[
+	\mbox{s.t.} \quad YE = 0 \quad U^TU = 1
+\]
+
+
+\[
+	\mu = \frac{1}{n}XE \quad H = I -\frac{1}{n}EE^T
+\]
+
+\textbf{four algorithms of PCA}
+\[
+	X = \left[\begin{matrix}
+	x_1 & x_2 & \cdots & x_n \\
+	\end{matrix} \right]
+	\quad x_i \in \mathbb{R}^{d\times 1}
+\]
+\[
+	X = U\Sigma V^T \quad XX^T = U\Sigma^2U^T \quad X^TX = V\Sigma^2V^T
+\]
+\hspace{\parindent}truncate them to $p$ rank.
+\[
+	X \in \mathbb{R}^{d \times n} \quad
+	Y \in \mathbb{R}^{p \times n} \quad 
+	U \in \mathbb{R}^{d \times p} \quad 
+	\Sigma \in \mathbb{R}^{p \times p} \quad
+	V \in \mathbb{R}^{d \times p}
+\]
+
+\begin{itemize}
+\item Encode
+\[
+	Y = U^TX = \Sigma V^T
+\]
+
+\item Reconstruct
+\[
+	\hat{X} = UY = UU^TX = XVV^T
+\]
+
+\item encode test sample
+\[
+	y = U^Tx = \Sigma^{-1}V^TX^T x
+\]
+
+\item reconstruct test sample
+\[
+	\hat{x} = UU^Tx = XV\Sigma^{-2}V^TX^Tx
+\]
+
+
+\end{itemize}
+
+
+
+
+
+
+
+\section{Local linear embeding:LLE}
+
+$N_j$ is the indexes of the neighbor of $x_j$, usually the $k$-NN graph gives $k$ neighbors.
+
+\[
+	\min_{c_{ij}} \sum_{j=1}^{N} \|x_j- \sum_{i \in N_j} x_ic_{ij}\|_2^2
+\]
+
+\[
+c_j = \frac{(G^{(j)})^{-1}\mathbf{1}}{\mathbf{1}^T (G^{(j)})^{-1}\mathbf{1}}
+\]
+\[
+	G^j_{ik} = (x_i-x_j)^T (x_k-x_j)
+\]
+\[	
+	i,k \in N_j \quad G^j_{ik} \in \mathbb{R}^{k \times k}
+\]
+
+
+
+\[
+	Y = \left[\begin{matrix}
+	y_1^T \\
+	y_2^T \\
+	\vdots \\
+	y_N^T \\
+	\end{matrix}\right] \in \mathbb{R}^{d \times N} \quad C = \left[\begin{matrix}
+	c_1 & c_2 & \cdots & c_N \\
+	\end{matrix}\right] \in \mathbb{R}^{k \times N}
+\]
+
+\[
+	\min_{Y} \sum_{j=1}^{N} \|y_j- \sum_{i \in N_j} y_ic_{ij}\|_2^2
+\]
+\[
+	\mbox{s.t.} \quad YY^T = I_d \quad Y\mathbf{1} = \mathbf{0}
+\]
+
+\[
+	L = (I-C)^T(I-C) \in \mathbb{R}^{N \times N}
+\]
+
+$y_i$ will be some eigen vectors of $L$.
+
+\section{Laplacian Eigenmaps:LE}
+\[
+	\min_{Y} \sum_{j=1}^{N} w_{ij}\|y_i- y_j\|_2^2
+\]
+
+\[
+	[W]_{ij} = w_{ij} = \exp\left[ -\frac{\|x_i- x_j\|_2^2}{2\sigma^2}\right]
+\]
+
+\[
+	d_{ii} = \sum_{j}^{N} w_{ij}  \quad
+	[D]_{ij} = \begin{cases}
+				 d_{ii} & i = j \\
+				 0 & i\neq j \\
+				\end{cases}
+\]
+
+\[
+	L = D - W
+\]
+
+\[
+\sum_{j=1}^{N} w_{ij}\|y_i- y_j\|_2^2 = 2\,\mathrm{tr}\left[YLY^T \right]
+\]
+
+\[
+	\min_{Y} \mathrm{tr}\left[YLY^T \right]
+\]
+\[
+	\mbox{s.t.} \quad YDY^T = I_d \quad YD\mathbf{1} = \mathbf{0}
+\]
+
+\[
+z^T L z = \sum_{i,j=1}^{N} L_{ij}z_i z_j =  \sum_{j=1}^{N} w_{ij}\|z_i- z_j\|_2^2
+\]
+
+\section{Kernel PCA}
+the key ideal is to implicitly map to higher dimension without doing calculation in the height dimension.
+\[
+	X \rightarrow H \rightarrow Y
+\]
+
+\[
+	\Phi: x_i \in \mathbb{R}^{d \times 1} \mapsto \Phi(x_i) \in \mathbb{R}^{M \times 1}\quad M > d
+\]
+
+$\Phi$ is usually unkown, but the kernel
+\[
+ k(x_i,x_j) = \Phi(x_i)^T\Phi(x_j)
+\]
+
+\[
+	K = \Phi(X)^T\Phi(X)
+\]
+	
+\[ \Phi(X) = \left[ \begin{matrix}
+	\Phi(x_1) & \Phi(x_2) & \cdots & \Phi(x_n)
+\end{matrix}	  \right] \in \mathbb{R}^{M \times n}
+	\quad
+	K \in \mathbb{R}^{n \times n}
+\]
+
+\[
+	\Phi(X) = U \Sigma V^T
+\]
+
+$\Phi(X)$ is unknown, but $\Sigma$ and $V$ can be calculated from kenerl
+
+\[
+	\Phi(X)^T\Phi(X) = K = V \Sigma^2 V^T
+\]
+
+\textit{encode}
+\[
+	Y = \Sigma V^T
+\]
+
+\textit{encode new sample: $x$}
+\[
+	y = \Sigma^{-1}V^T K(X,x)
+\]
+
+
+\begin{itemize}
+\item PCA
+\[
+	K = X^TX
+\]
+
+\item MDS
+\[
+	K = -\frac{1}{2}HD^{(X)}H \quad H = I-EE^T \quad E = \left[ \begin{matrix}
+	1 \\ 1 \\ \vdots \\ 1
+	\end{matrix}\right]
+\]
+
+\item Isomap
+\[
+	K = -\frac{1}{2}HD^{(G)}H
+\]
+
+\item LLE and LE
+\[
+	K = L^+
+\]
+
+\end{itemize}
+
+\section{Supervised PCA}
+
+\textit{hilbert schmidt independence criterion}
+\begin{align*}
+	Hsic(X,Y) & = \frac{1}{(n-1)^2}\mathrm{tr}[KHLH] \\
+		& = \frac{1}{(n-1)^2}\mathrm{tr}[HKHL]
+\end{align*}
+
+\[
+	K = K_X(X,X) \quad L = K_Y(Y,Y)
+\]
+
+$K_X$ and $K_Y$ is some kernels of $X$ and $Y$.
+
+\textit{supervised PCA} is to find projection U that maximized the $U^TX$ dependence on $Y$ 
+
+\[
+\max_U \mathrm{tr}[(U^TX)^TU^TX HLH]
+\]
+
+or 
+\[
+\max_U \mathrm{tr}[U^TXHLHX^TU]
+\]
+\[
+	\mbox{s.t.} \quad U^TU = I
+\]
+
+when $L = I$, back to normal PCA
+\[
+\max_U \mathrm{tr}[U^TXHHX^TU]
+\]
+\[
+	\mbox{s.t.} \quad U^TU = I
+\]
+
+\section{K-means}
+\[
+ \min_{\{\mu_i\}} \sum_{j =1}^{N} \min_{i=1:k} \|x_j-\mu_i\|^2_2
+\]
+
+\[
+ \min_{\{\mu_i\}} \sum_{j =1}^{N} \sum_{j=1}^{k} w_{ij} \|x_j-\mu_i\|^2_2
+\]
+
+\[
+	w_{ij} = \begin{cases}
+	1 & i = \mathrm{arg}\min_{l=1:k} \|x_j-\mu_l\|^2_2 \\
+	0 & \mbox{else}
+	\end{cases}
+\]
+
+
+Given $\{w_{ij}\}$
+\[
+	\mu_i = \frac{\sum_{j=1}^N w_{ij}x_j}{\sum_{j=1}^N w_{ij}}
+\]
+
+
+
+Given $\{\mu_i\}$
+\[
+	\mbox{s.t.} \quad \sum_{i=1}^{k} w_{ij} = 1
+\]
+\[
+	w_{ij} = \begin{cases}
+	1 & i = \mathrm{arg}\min_{l=1:k} \|x_j-\mu_l\|^2_2 \\
+	0 & \mbox{else}
+	\end{cases}
+\]
+
+
+\section{K-subspaces}
+\[
+ \min_{ \{ M_i \} } \sum_{j =1}^{N} \min_{i=1:k} \mathrm{d}^2(x_j,M_i)
+\]
+
+
+\[
+ \min \sum_{i=1}^{n} \sum_{j=1}^{N} w_{ij} \|x_j - \mu_i -U_i y_{ij}\|_2^2
+\]
+
+\[
+	\mathrm{d}^2(x_j,S_i) = \|x_j - \mu_i -U_i y_{ij}\|_2^2
+\]
+
+\[
+	S_i = \{x: x = \mu_i + U_i y_i, y_i \in \mathbb{R}^{d_i}\}
+\]
+
+\end{document}

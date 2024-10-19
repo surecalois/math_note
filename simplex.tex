@@ -1,0 +1,176 @@
+\documentclass[11pt, oneside]{article}   	% use "amsart" instead of "article" for AMSLaTeX format
+\usepackage{geometry}                		% See geometry.pdf to learn the layout options. There are lots.
+\geometry{a4paper}                   		% ... or a4paper or a5paper or ... 
+\usepackage{amsmath,tabu}
+\begin{document}
+
+\section{LP problem}
+\[
+\begin{tabu}{rl}
+ min & c^T x \\
+s.t. & Ax = b \\
+ &  x \geq 0
+\end{tabu}
+\]
+
+break $x$ into $x_B$ and $x_N$ and $A$ into $[B\:N]$
+
+\[
+ Ax = \begin{bmatrix} 
+	B &N
+	\end{bmatrix}
+	\begin{bmatrix} 
+	x_B \\ 
+	x_N
+	\end{bmatrix} = b
+\]
+
+an easy choice will be
+\[
+x = \begin{bmatrix} 
+	x_B \\ 
+	x_N
+	\end{bmatrix} = \begin{bmatrix} 
+	B^{-}b \\ 
+	0
+	\end{bmatrix}
+\]
+
+\[
+x_B = B^{-}b - B^{-}Nx_N
+\]
+make a new matrix $Y$
+\[
+Y = B^{-}A = [ Y_B \: Y_N] = [I_B \: B^{-}N]
+\]
+
+\[
+x_B = B^{-}b - Y_N x_N \geq 0
+\]
+\[
+z = c^Tx = c_B^T x_B + c_N^T x_N = c_B^T B^{-}b - c_B^T Y_N x_N + c_N^T x_N 
+\]
+
+\[
+z = c_B^T B^{-}b - (c_B^T Y_N - c_N^T) x_N 
+\]
+
+LP problem transform into a partition problem, which can be searched for all the possible solution $B$, theoretically. 
+for $rank(A)=r$ and $n$ columns, the space will be $C^r_n$.
+
+\[
+\begin{tabu}{rl}
+ min & z = c_B^T B^{-}b - (c_B^T Y_N - c_N^T) x_N \\
+s.t. & B^{-}b - Y_N x_N \geq 0 \\
+ &  x_N \geq 0
+\end{tabu}
+\]
+
+partition$[B\: N]$, so that
+\[
+(c_B^T Y_N - c_N^T)  \leq 0
+\]
+
+s.t.
+\[ B^{-}b - Y_N x_N \geq 0\]
+
+\section{pivot selection}
+entering $N$ and exiting $N$ variable: swapping $j$ and $i$ from $N$ to $B$
+
+for $i$ select one with positive coefficient in the objective function:
+\[c_B^T Y_N - c_N^T > 0 \]
+
+for $j$ select the first one violate the $B^{-}b - Y_N x_N \geq 0 $ when increasing, or
+\[
+which.min \; B^{-}b./Y_N
+\]
+
+the $Y$ construction process is the main process of simplex method.
+
+
+\section{tableau}
+$B^{-}b$ can be carried along on the right-hand-side (RHS) as constructing $Y$
+\[
+Yx = B^{-}Ax =  B^{-}b
+\]
+
+extended $Y$ with $z$ on top, then the objective value will be carried along on the RHS.
+\[
+z = c_B^T B^{-}b - (c_B^T Y_N - c_N^T) x_N 
+\]
+\[
+c_B^T B^{-} A - c^T = c_B^T B^{-} [ B\; N] - [c^T_B \; c^T_N]
+\]
+\[
+c_B^T B^{-} A - c^T = [c_B^T B^{-} B - c^T_B\; c_B^T B^{-}N - c^T_N]  = [0 \; c_B^T Y_N - c^T_N]
+\]
+\[
+[c_B^T B^{-} A - c^T ]\begin{bmatrix} 
+	x_B \\ x_N
+	\end{bmatrix} = (c_B^T Y_N - c^T_N)x_N
+\]
+\[
+[c_B^T B^{-} A - c^T ]\begin{bmatrix} 
+	x_B \\ x_N
+	\end{bmatrix} =  c_B^T B^{-}b - z
+\]
+\[[1\; c_B^T B^{-} A - c^T ]\begin{bmatrix} 
+	z\\ x_B \\ x_N
+	\end{bmatrix} =  c_B^T B^{-}b
+\]
+
+\[
+\tilde{Y} x=  \begin{bmatrix} 
+	1 & c^T_B B^- A-c^T \\
+	0 & B^-A
+	\end{bmatrix}\begin{bmatrix} 
+	z \\ x_B \\ x_N
+	\end{bmatrix} = \begin{bmatrix} 
+	 c^T_B B^- b \\
+	B^{-}b
+	\end{bmatrix}
+\]
+
+at the beginning
+\[
+\tilde{Y} x=  \begin{bmatrix} 
+	1 & -c^T \\
+	0 & A
+	\end{bmatrix}\begin{bmatrix} 
+	z \\ x_B \\ x_N
+	\end{bmatrix} = \begin{bmatrix} 
+	 0 \\
+	b
+	\end{bmatrix}
+\]
+
+in the end, the base variable has one-hot column vector in $\tilde{Y}$, the non-base variable has negative coefficient on top.
+\[
+\tilde{Y} x=  \begin{bmatrix} 
+	1 & c^T_B B^- A-c^T \\
+	0 & Y
+	\end{bmatrix}\begin{bmatrix} 
+	z \\ x_B \\ x_N
+	\end{bmatrix} = \begin{bmatrix} 
+	 c^T_B B^- b \\
+	B^{-}b
+	\end{bmatrix}
+\]
+how do you know if a variable has entered the $B$ will not exit again? 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+\end{document}  

@@ -1,0 +1,458 @@
+\documentclass[10pt,a4paper]{article}
+\usepackage[utf8]{inputenc}
+\begin{document}
+\[
+m = \left[ \begin{array}{c}
+\mu_1 \\ \mu_2 \\ \vdots \\ \mu_{n}
+\end{array} \right]
+\quad
+e = \left[ \begin{array}{c}
+1 \\ 1 \\ \vdots \\ 1
+\end{array} \right] \in \mathcal{R}^{n\times 1}
+\quad
+\left[ \begin{array}{c}
+m^T \\ e^T
+\end{array} \right] \in \mathcal{R}^{2\times n}
+\quad
+\left[ \begin{array}{cc}
+m & e
+\end{array} \right] \in \mathcal{R}^{n \times 2}
+\]
+
+\[
+\Sigma = X^TX \quad Z = \Sigma^{-1}  \quad Z^T = Z \in \mathcal{R}^{n \times n} \quad X \in \mathcal{R}^{N \times n}
+\]
+
+
+\[
+1 = e^Tw  \quad \mu = w^T m \quad \sigma^2 = w^T \Sigma w
+\]
+
+KKT.main
+\[
+\Sigma w - \lambda m - \gamma e = 0
+\]
+
+\[
+w = \lambda Z m + \gamma Z e = Z \left[ \begin{array}{cc}
+m & e
+\end{array} \right]\left[ \begin{array}{c}
+\lambda \\ \gamma
+\end{array} \right]
+\]
+
+\[
+\left[ \begin{array}{c}
+m^T \\ e^T
+\end{array} \right]
+Z \left[ \begin{array}{cc}
+m & e
+\end{array} \right]\left[ \begin{array}{c}
+\lambda \\ \gamma
+\end{array} \right]=
+\left[ \begin{array}{c}
+\mu \\ 1
+\end{array} \right]
+\]
+
+\[
+T = \left[ \begin{array}{c}
+m^T \\ e^T
+\end{array} \right]
+Z \left[ \begin{array}{cc}
+m & e
+\end{array} \right] = \left[ \begin{array}{cc}
+m^TZm & m^TZe \\ e^TZm & e^TZe
+\end{array} \right]
+\]
+
+minimum volatility $\lambda = 0$
+\[
+w_{mv} = 0Zm + \gamma Ze \quad e^Tw_{mv} = 1 \Rightarrow w_{mv} = \frac{Ze}{e^TZe}
+\]
+
+$(0,0)$ tangent line
+\[
+\frac{d\mu}{d\sigma} = \frac{\mu}{\sigma} \Rightarrow \frac{d\mu}{dw} = \frac{\mu}{2\sigma^2} \frac{d\sigma^2}{dw}
+\]
+
+\[
+\sigma^2 m = \mu \Sigma w
+\]
+\[
+\sigma^2 Zm = \mu  w \Rightarrow \sigma^2 e^TZm = \mu \Rightarrow w^T \Sigma w = \frac{w^Tm}{e^TZm} \Rightarrow w_{mk} = \frac{Zm}{e^TZm}
+\]
+
+
+\[
+w_{mv} = \frac{Ze}{e^TZe} \quad \mu_{mv} = \frac{m^TZe}{e^TZe} \quad \sigma_{mv}^2 = \frac{(Ze)^T\Sigma Ze}{(e^TZe)^2} = \frac{1}{e^TZe}
+\]
+
+\[
+ w_{mk} = \frac{Zm}{e^TZm} \quad \mu_{mk} = \frac{m^TZm}{e^TZm} \quad \sigma_{mk}^2 = \frac{(Zm)^T\Sigma Zm}{(e^TZm)^2}= \frac{m^TZm}{(e^TZm)^2}
+\]
+
+\[
+w_{\alpha} = \alpha w_{mk} + (1-\alpha) w_{mv}
+\]
+
+\[
+\mu_{\alpha} = \alpha \mu_{mk} + (1-\alpha) \mu_{mv}
+\]
+
+\[
+\sigma^2_{\alpha} = w_{\alpha}^T \Sigma w_{\alpha} = \alpha^2 \sigma^2_{mk} + (1-\alpha)^2 \sigma^2_{mv} + 2\alpha(1-\alpha)w_{mk}^T \Sigma w_{mv}
+\]
+\[
+w_{mk}^T \Sigma w_{mv} = \frac{(Ze)^T\Sigma Zm}{(e^TZe)(e^TZm)} = \frac{1}{e^TZe} = \sigma_{mv}^2
+\]
+\[
+\sigma^2_{\alpha} = \alpha^2 \sigma^2_{mk} + (1-\alpha)^2 \sigma^2_{mv} + 2\alpha(1-\alpha)\sigma_{mv}^2
+\]
+
+\[
+\sigma^2_{\alpha} = \alpha^2 \sigma^2_{mk} + (1-\alpha^2) \sigma^2_{mv}
+\]
+
+
+\[
+\mu_{\alpha} =\mu_{mv} +  \alpha (\mu_{mk} - \mu_{mv}) 
+\]
+\[ \sigma^2_{\alpha} = \sigma^2_{mv} + \alpha^2 (\sigma^2_{mk} -\sigma^2_{mv})
+\]
+
+It is hyperbola
+\[
+\sigma^2_{\alpha} - \frac{(\mu_{\alpha}-\mu_{mv})^2}{\kappa^2} = \sigma^2_{mv}
+\]
+\[\kappa = \frac{\mu_{mk} - \mu_{mv}}{\sqrt{\sigma^2_{mk} -\sigma^2_{mv}}}
+\]
+asymptote 
+\[
+\mu = \mu_{mv} \pm \kappa\sigma
+\]
+
+$T$ has three independent elements, the two chosen points should be related by one equation
+\[
+\frac{\mu_{mv}}{\mu_{mk}} = \frac{\sigma^2_{mv}}{\sigma^2_{mk}} \quad \mathrm{or}  \quad \frac{\mu_{mk}}{\sigma^2_{mk}} = \frac{\mu_{mv}}{\sigma^2_{mv}}
+\]
+
+
+\[
+\sigma_{\alpha\beta} = w_{\alpha} \Sigma w_{\beta} = \alpha\beta \sigma^2_{mk} +(1-\alpha)(1-\beta) \sigma^2_{mv} + 
+[\alpha(1-\beta) + \alpha(1-\beta)]\sigma^2_{mv}
+\]
+\[
+\sigma_{\alpha\beta} =\alpha\beta \sigma^2_{mk} + (1-\alpha\beta)\sigma^2_{mv}
+\]
+
+\[
+\begin{array}{rcl}
+m & \mapsto & Am \\
+\Sigma & \mapsto & A \Sigma A^T \\
+Z & \mapsto & A^{-T} Z A^{-1}
+\end{array}
+\]
+
+frontier invariant condition
+\[
+A^{-1} e = e \Leftrightarrow Ae = e
+\]
+so that
+\[
+e^T Z e \mapsto e^T A^{-T} Z A^{-1}e = e^T Z e
+\]
+\[
+m^T Z e \mapsto m^TA^T A^{-T} Z A^{-1} e = m^T Z e
+\]
+\[
+m^T Z m \mapsto m^TA^T A^{-T} Z A^{-1} Am = m^T Z m
+\]
+
+re-scale the eigen vectors to find the independent asset
+\[
+\Sigma = U \Lambda^2 U^T
+\]
+\[
+A = SU \quad Ae = e \Rightarrow SUe = e \Rightarrow S^{-1}e = Ue
+\]
+\[
+S = \left[  \begin{array}{ccc}
+    s_{1} & & \\
+    & \ddots & \\
+    & & s_{n}
+\end{array}\right]
+\quad \quad
+\left[  \begin{array}{c}
+    s_{1}^{-1}\\
+    \vdots \\
+    s_{n}^{-1}
+\end{array}\right] = Ue
+\]
+if $\mu_i$ uncorrelated
+\[
+\left[
+\begin{array}{cccc}
+1 & 1 & \cdots & 1 \\
+\mu_1 & \mu_2 & \cdots & \mu_n \\
+\mu_1^2 & \mu_2^2 & \cdots & \mu_n^2 \\
+\end{array}
+\right]\left[  \begin{array}{ccc}
+    z_{1}^{2} & & \\
+    & \ddots & \\
+    & & z_{n}^{2}
+\end{array}\right]\left[  \begin{array}{c}
+    1\\
+    \vdots \\
+    1
+\end{array}\right] = \left[  \begin{array}{c}
+    e^TZe\\
+    m^TZe \\
+    m^TZm
+\end{array}\right]
+\]
+
+\[
+\delta = \mathrm{det}T =\mathrm{det}\left[ \begin{array}{cc}
+m^TZm & m^TZe \\ e^TZm & e^TZe
+\end{array} \right]
+\]
+
+if $\delta = 0$ means only one actually independent asset.
+
+two assets define a curve, so there are $C^2_n$ curves.
+
+\[
+\kappa^2 = \frac{(\mu_{mk} - \mu_{mv})^2}{\sigma^2_{mk} -\sigma^2_{mv}}=
+\frac{ (\frac{m^TZm}{e^TZm}-\frac{m^TZe}{e^TZe})^2}{\frac{m^TZm}{(e^TZm)^2}-\frac{1}{e^TZe}}=\frac{\delta}{e^TZe}=m^TZm + \frac{(e^TZm)^2}{e^TZe}
+\]
+
+select $k$ out of $n$ independent assets to maximize $\kappa$
+
+\[
+\kappa^2 = \Sigma_{i=1}^{n}\mu_i^2z_i^2 + \frac{(\Sigma_{i=1}^{n}\mu_iz_i^2)^2}{\Sigma_{i=1}^{n}z_i^2}
+\]
+
+it seems to leave out the $n-k$ smallest $z_i$ would be the answer.
+
+
+
+\newpage
+CAPM
+
+KKT.main
+\[
+\partial w_0 \Rightarrow \lambda \mu_f + \gamma = 0
+\]
+\[
+\partial w \Rightarrow \Sigma w -\lambda m - \gamma e = 0
+\]
+\[
+w = \lambda Zm + \gamma Ze = \lambda Z(m -\mu_f e)
+\]
+
+\[
+e^Tw = 1 - w_0 \Rightarrow w_0 + \lambda e^TZ(m -\mu_f e) = 1
+\]
+\[
+m^Tw = \mu - w_0\mu_f \Rightarrow w_0\mu_f + \lambda m^TZ(m -\mu_f e) = \mu
+\]
+
+solve for $\lambda$ and $w_0$
+\[
+\lambda = \frac{\mu - \mu_f}{(m -\mu_f e)^TZ(m -\mu_f e)} \quad w_0 = 1 - \frac{e^TZ(m -\mu_f e)}{(m -\mu_f e)^TZ(m -\mu_f e)}(\mu - \mu_f)
+\]
+\[
+\mu^* = \mu - \mu_f \quad m^* = m - \mu_fe
+\]
+\[
+\lambda = \frac{\mu^*}{m^{*T} Z m^*} \quad w_0 = 1- \frac{e^TZm^*}{m^{*T} Z m^*}\mu^* \quad w =  \frac{Zm^*}{m^{*T} Z m^*}\mu^*
+\]
+or
+\[
+w_0 = 1- \lambda e^TZm^* \quad w =  \lambda Zm^*
+\]
+define $\lambda = 1$ as market portfolio
+\[
+w_{mk}= Z m^*
+\]
+\[
+\mu_{mk} = \mu_f + m^{*T} Z m^*
+\]
+\[
+\sigma^2_{mk} = w_{mk}^T\Sigma w_{mk} = m^{*T}Zm^*
+\]
+\[
+\sigma^2_{mk} = \mu_{mk} - \mu_f
+\]
+
+market line
+\[
+\mu = \mu_f + \frac{\mu_{mk}-\mu_f}{\sigma_{mk}}\sigma
+\]
+\[
+\mu= \mu_f + \kappa\sigma
+\]
+\[ 
+\kappa = \frac{\mu_{mk}-\mu_f}{\sigma_{mk}} = \sqrt{m^{*T}Zm^*}
+\]
+
+mixing asset $r_i$ with $r_{mk}$, 
+\[
+r_\alpha = \alpha r_i + (1-\alpha) r_{mk}
+\]
+
+$(\sigma_\alpha,\mu_\alpha)$ trace a hyperbola
+\[
+\mu_\alpha = \alpha \mu_i + (1- \alpha) \mu_{mk}
+\]
+\[
+\sigma^2_{\alpha} = \alpha^2 \sigma^2_{i} + (1-\alpha)^2 \sigma^2_{mk} + 2\alpha(1-\alpha)w_{mk}^T \Sigma w_{i}
+\]
+\[
+\sigma_{ik} = w_{mk}^T \Sigma w_{i} = m^{*T}Z\Sigma w_{i} = m^{*T}w_i = \mu_i - \mu_f
+\]
+
+
+\[
+\frac{d\mu_\alpha}{d\sigma_\alpha} = 2\sigma_\alpha \frac{\frac{d\mu_\alpha}{d\alpha}}{\frac{d\sigma^2_\alpha}{d\alpha}}
+=\frac{\sigma_\alpha(\mu_i-\mu_{mk})}{\alpha\sigma^2_i -(1-\alpha)\sigma_{mk}^2 + \sigma_{ik}(1-2\alpha)}
+\]
+\[
+\left. \frac{d\mu_\alpha}{d\sigma_\alpha} \right|_{\alpha = 0} = \frac{\sigma_{mk}(\mu_i-\mu_{mk})}{ \sigma_{ik}-\sigma_{mk}^2 } = \sqrt{m^{*T}Zm^*} = \kappa
+\]
+
+the market line is the tangent line at $(\sigma_{mk}, \mu_{mk})$ of the hyperbola generated by mixing $r_i$ and $r_{mk}$.
+
+
+check the connection with the no risk free version
+\[
+w_0 = 0 \quad \mu_f \rightarrow 0 \Rightarrow m^* \rightarrow m \quad \mu^* \rightarrow \mu
+\]
+
+\[
+w_0 = 1- \frac{e^TZm^*}{m^{*T} Z m^*}\mu^* = 0 \Rightarrow \mu^* = \frac{m^{*T}Zm^*}{e^TZm^*}
+\]
+\[
+w = \frac{Zm^*}{m^{*T}Zm^*}\mu^* = \frac{Zm^*}{e^TZm^*}
+\]
+\[
+\lambda = \frac{\mu^*}{m^{*T}Zm^*} = \frac{1}{e^TZm^*}
+\]
+so, instead of defining $\lambda = 1$, choose $\lambda = 1/(e^TZm^*)$
+
+\[
+w_{mk}= \lambda Z m^*
+\]
+\[
+\mu_{mk} = \mu_f +\lambda m^{*T} Z m^*
+\]
+\[
+\sigma^2_{mk} = w_{mk}^T\Sigma w_{mk} = \lambda^2 m^{*T}Zm^*
+\]
+\[
+\sigma^2_{mk} = \lambda( \mu_{mk} - \mu_f)
+\]
+\[
+\kappa = \frac{\mu_{mk} - \mu_f}{\sigma_{mk}} = \frac{\lambda m^{*T} Z m^*}{\lambda \sqrt{m^{*T}Zm^*}} = \sqrt{m^{*T}Zm^*}
+\]
+\[
+\sigma_{ik} = \lambda(\mu_i - \mu_f)
+\]
+\[
+\frac{\sigma_{mk}(\mu_i-\mu_{mk})}{ \sigma_{ik}-\sigma_{mk}^2 }  = \frac{\lambda \sqrt{m^{*T}Zm^*}(\mu_{mk}-\mu_f)}{\lambda(\mu_i - \mu_f) - \lambda(\mu_{mk}-\mu_f)} = \sqrt{m^{*T}Zm^*} = \kappa
+\]
+this means, no matter which point on the market line is chosen as the market point (portfolio), the mixer with it will generate a hyperbola tangent at the chosen point.
+
+now, in the general case, choose any point from the efficient frontier, a mixer with that point and another point from the market will generate a hyperbola tangent at it.
+
+\[
+\mu_\alpha = \alpha \mu_a + (1- \alpha) \mu_b
+\]
+\[
+\sigma^2_{\alpha} = \alpha^2 \sigma^2_{a} + (1-\alpha)^2 \sigma^2_{b} + 2\alpha(1-\alpha)\sigma_{ab}
+\]
+\[
+\frac{d\mu_\alpha}{d\sigma_\alpha} = 2\sigma_\alpha \frac{\frac{d\mu_\alpha}{d\alpha}}{\frac{d\sigma^2_\alpha}{d\alpha}}
+=\frac{\sigma_\alpha(\mu_a-\mu_{b})}{\alpha\sigma^2_a -(1-\alpha)\sigma_{b}^2 + \sigma_{ab}(1-2\alpha)}
+\]
+\[
+\left.\frac{d\mu_\alpha}{d\sigma_\alpha}\right|_{\alpha = 0} = \frac{\sigma_b(\mu_a-\mu_{b})}{\sigma_{ab} -\sigma_{b}^2 } \quad
+\left.\frac{d\mu_\alpha}{d\sigma_\alpha}\right|_{\alpha = 1} = \frac{\sigma_a(\mu_a-\mu_{b})}{\sigma_{a}^2 - \sigma_{ab}} 
+\]
+
+pick a point from the frontier
+\[
+r_\alpha = \alpha r_{mk} + (1-\alpha) r_{mv}
+\]
+
+\[
+\frac{d\mu_\alpha}{d\sigma_\alpha} = \frac{\sigma_\alpha(\mu_{mk}-\mu_{mv})}{\alpha\sigma^2_{mk} -(1-\alpha)\sigma_{mv}^2 + \sigma_{mk,mv}(1-2\alpha)}
+\]
+\[
+\sigma_{\alpha\beta} =\alpha\beta \sigma^2_{mk} + (1-\alpha\beta)\sigma^2_{mv}
+\]
+\[
+\frac{d\mu_\alpha}{d\sigma_\alpha} = \frac{\sigma_\alpha(\mu_{mk}-\mu_{mv})}{\alpha(\sigma^2_{mk} -\sigma_{mv}^2)}=\frac{\sigma_\alpha}{\alpha}\frac{\mu_{mk}}{\sigma^2_{mk}}
+\]
+
+\[
+r_\lambda = \lambda r_\alpha + (1-\lambda) r_i
+\]
+
+\[
+\frac{d\mu_\lambda}{d\sigma_\lambda} = \frac{\sigma_\lambda(\mu_{\alpha}-\mu_{i})}{\lambda\sigma^2_{\alpha} -(1-\lambda)\sigma_{i}^2 + \sigma_{i\alpha}(1-2\lambda)}
+\]
+\[
+\left.\frac{d\mu_\lambda}{d\sigma_\lambda}\right|_{\lambda = 1} = \frac{\sigma_\alpha(\mu_{\alpha}-\mu_{i})}{\sigma^2_{\alpha} - \sigma_{i\alpha}}
+\]
+\[
+\sigma_{i\alpha} = w_\alpha^T \Sigma w_i = \alpha\frac{\mu_i}{e^TZm}+(1-\alpha)\frac{1}{e^TZe} 
+\]
+\[
+\sigma_{i\alpha} = \alpha \frac{\mu_i}{\mu_{mk}}\sigma^2_{mk} + (1-\alpha)\sigma^2_{mv}
+\]
+use the two point relationship replace $\sigma^2_{mv}$ with $\sigma^2_{mk}$
+\[
+\sigma_{i\alpha} = \alpha\frac{\mu_i - \mu_{mv}}{\mu_{mk}}\sigma^2_{mk} +  \frac{\mu_{mv}}{\mu_{mk}}\sigma^2_{mk}
+\]
+
+\[ \sigma^2_{\alpha} = \sigma^2_{mv} + \alpha^2 (\sigma^2_{mk} -\sigma^2_{mv}) =  \frac{\mu_{mv}}{\mu_{mk}}\sigma^2_{mk} + \alpha^2 \frac{\mu_{mk} - \mu_{mv}}{\mu_{mk}}\sigma^2_{mk}
+\]
+\[
+\sigma^2_\alpha - \sigma_{i\alpha} = \alpha\left(\alpha \mu_{mk} - \alpha \mu_{mv} -  \mu_i + \mu_{mv}\right)\frac{\sigma^2_{mk}}{\mu_{mk}}
+\]
+\[
+\sigma^2_\alpha - \sigma_{i\alpha} = \alpha\left(\mu_\alpha -  \mu_i \right)\frac{\sigma^2_{mk}}{\mu_{mk}}
+\]
+\[
+\left.\frac{d\mu_\lambda}{d\sigma_\lambda}\right|_{\lambda = 1} = \frac{\sigma_\alpha}{\alpha}\frac{\mu_{mk}}{\sigma^2_{mk}} = \frac{d\mu_\alpha}{d\sigma_\alpha}
+\]
+
+\newpage
+Pricing asset $r_i$
+
+define $\beta_i$ for asset $r_i$.
+\[
+\beta_i = \frac{\mu_i - \mu_f}{\mu_{mk} - \mu_f} = \frac{\sigma_{ik}}{\sigma_{mk}^2}
+\]
+\[
+\mu_i = \mu_f + \beta_i (\mu_{mk} - \mu_f)
+\]
+
+buy in at $P$, sell at $Q$
+
+\[
+r = \frac{Q-P}{P} \quad \mu = \frac{\mu_Q - P}{P}\Rightarrow \mu = \mu_f + \beta (\mu_{mk} - \mu_f)
+\]
+\[
+P = \frac{\mu_Q}{1+\mu_f + \beta(\mu_{mk} - \mu_f)}
+\]
+\[
+\beta = \frac{\mathrm{cov}(r,r_{mk})}{\sigma^2_{mk}} = \frac{\mathrm{cov}(Q,r_{mk})}{P\sigma^2_{mk}}
+\]
+\[
+P = \frac{1}{1+\mu_f}\left[\mu_Q - \frac{\mathrm{cov}(Q,r_{mk})(\mu_{mk} - \mu_f)}{\sigma^2_{mk}}\right] = \frac{\mu_Q - \mathrm{cov}(Q,r_{mk})}{1+\mu_f}
+\]
+
+\end{document}

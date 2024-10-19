@@ -1,0 +1,1607 @@
+\documentclass[12pt,a4paper]{article}
+\usepackage[utf8]{inputenc}
+\usepackage{amsmath}
+\usepackage{amssymb}
+
+\author{Jiejia Xu}
+\begin{document}
+$f:V \longrightarrow \mathbb{R}$ \,, $x,y\in V$ \,, $\alpha \in \mathbb{R}$
+
+\begin{align*}
+	f(x+y) &= f(x) + f(y)\\
+	f(\alpha x) &= \alpha f(x)
+\end{align*}
+
+
+$ x \in V = \mathbb{R}^n $ \,, $x^i \in \mathbb{R} $ \,, $ \delta_i \in V $
+
+\[
+x = x^1\delta_1+x^2\delta_2+\cdots+x^n\delta_n = x^i\delta_i
+\]
+
+$\delta^j \in V^*$ \,, $V \times V^* \longrightarrow \mathbb{R}$
+\[
+\delta^j(x) = x^j
+\]
+
+\[
+\delta^j(\delta_i) = \delta^j_i = 
+	\begin{cases}
+		1, & i = j \\
+		0, & i \neq j
+	\end{cases} 
+\]
+
+$f \in V^*$ \,, $f(\delta_i) = f_i \in \mathbb{R} $
+\[
+f(x) = f(x^i\delta_i) = x^if(\delta_i) = \delta^i(x)f(\delta_i) = (\delta^if_i)(x)
+\]
+
+\[
+f = f_i\delta^i
+\]
+
+$f:V^r \longrightarrow \mathbb{R}$ \,, $f \in (V^*)^r = V_r$
+
+$f\in V_r$ \,, $g \in V_s$
+\[
+	f \otimes g (x_1,x_2,\cdots,x_{r+s}) = f(x_1,\cdots,x_r)\cdot g(x_{r+1},\cdots,x_{r+s})
+\]
+
+$\delta^{i_k} \in V^*$ \,, $\delta^{i_1} \otimes \delta^{i_2} \otimes \cdots \otimes \delta^{i_r} \in V_r$
+
+$x_i \in V$ \,, $ x^{i_1}_1x^{i_2}_2\cdots x^{i_r}_r \in V^r$
+\begin{align*}
+\delta^{i_1} \otimes \delta^{i_2} \otimes \cdots \otimes \delta^{i_r} (x_1,x_2,\cdots,x_r) &= \delta^{i_1}(x_1)\delta^{i_2}(x_2)\cdots\delta^{i_r}(x_r) \\
+&= x^{i_1}_1x^{i_2}_2\cdots x^{i_r}_r
+\end{align*}
+
+$f(\delta_{i_1},\delta_{i_2},\cdots,\delta_{i_r}) = f_{i_1,i_2,\cdots,i_r}
+\in \mathbb{R}
+$
+\begin{align*}
+f(x_1,x_2,\cdots,x_r)&=f(x^{i_1}\delta_{i_1},x^{i_2}\delta_{i_2},\cdots,x^{i_r}\delta_{i_r})\\
+&=x^{i_1}_1x^{i_2}_2\cdots x^{i_r}_r f(\delta_{i_1},\delta_{i_2},\cdots,\delta_{i_r})\\
+&=x^{i_1}_1x^{i_2}_2\cdots x^{i_r}_r f_{i_1,i_2,\cdots,i_r}\\
+&=f_{i_1,i_2,\cdots,i_r} \delta^{i_1} \otimes \delta^{i_2} \otimes \cdots \otimes \delta^{i_r} (x_1,x_2,\cdots,x_r)
+\end{align*}
+
+$\mathrm{dim}V_r = n^r$
+\[
+	f = f_{i_1,i_2,\cdots,i_r} \delta^{i_1} \otimes \delta^{i_2} \otimes \cdots \otimes \delta^{i_r}
+\]
+
+
+
+$$
+	f(x_{\sigma(1)},x_{\sigma(2)},\cdots,x_{\sigma(r)}) = \mathrm{sgn}\sigma f(x_1,x_2,\cdots,x_r) 
+$$
+\newline
+
+$f \in V_2$ \,, $x,y \in V$
+$$
+	[f](x,y) = \frac{1}{2}(f(x,y)-f(y,x))
+$$
+
+$f \in V_r$ \,, $x_i \in V$
+$$
+	[f](x_1,x_2,\cdots,x_r) = \frac{1}{r!}\sum_{\sigma \in S_r} \mathrm{sgn}\sigma f(x_{\sigma(1)},x_{\sigma(2)},\cdots,x_{\sigma(r)})
+$$
+
+$ \Lambda^r V^* = \{f\in V_r |[f]=f \}$
+
+$f \in \Lambda^r V^*$ \,, $g \in \Lambda^s V^*$ \,, $x \in V^r$ \,, $y \in V^s$
+
+\[
+	f\wedge g (x,y) = \frac{(r+s)!}{r!s!}[f\otimes g](x,y)
+\]
+
+$f \in \Lambda^r V^*$ \,, $g \in \Lambda^s V^*$ \,, $x \in V^{r+s}$
+
+\[
+	f\wedge g (x) = \frac{1}{r!s!}\sum_{\sigma \in S_{r+s}} \mathrm{sgn}\sigma f(x_{\sigma(1)},x_{\sigma(2)},\cdots,x_{\sigma(r)})g(x_{\sigma(r+1)},x_{\sigma(r+2)},\cdots,x_{\sigma(r+s)})
+\]
+
+\[
+		g\wedge f (x) = \frac{1}{r!s!}\sum_{\sigma \in S_{r+s}} \mathrm{sgn}\sigma g(x_{\sigma(1)},x_{\sigma(2)},\cdots,x_{\sigma(s)})f(x_{\sigma(s+1)},x_{\sigma(s+2)},\cdots,x_{\sigma(r+s)})
+\]
+
+\[
+	f\wedge g (x) =\mathrm{sgn}\begin{pmatrix}
+	&1,&2,&\cdots,&r,&r+1,&\cdots,&r+s \\
+	&s+1,&s+2,&\cdots,&s+r,&1,&\cdots,&s
+	\end{pmatrix} g \wedge f(x)
+\]
+
+Laplace expansion therorem
+$B = [b_{ij}]$ be an $n \times n$ matrix, and S is k-element subsets of {1,2,..., n}, $H \in S$, B is expanded by H as follow
+
+\[
+	|B| = \sum_{L \in S}\epsilon^{H,L}b_{H,L}c_{H,L}
+\]
+
+$\epsilon^{H,L} = (-1)^{(\sum_{h \in H} h)+(\sum_{l \in L} l)}$, $b_{H,L}$ is the keeper, $c_{H,L}$ is the remover.
+
+
+\begin{align*}
+&\mathrm{sgn}\begin{pmatrix}
+	&1,&2,&\cdots,&r,&r+1,&\cdots,&r+s \\
+	&s+1,&s+2,&\cdots,&s+r,&1,&\cdots,&s
+	\end{pmatrix} \\&= \epsilon^{H,L} \\
+	&=(-1)^{(1+2+\cdots+r)+(r+1+r+2+\cdots+r+s)} \\
+	&=(-1)^{\frac{r(r+1)}{2}+rs+\frac{r(r+1)}{2}} \\
+	&=(-1)^{rs}
+\end{align*}
+
+A better way to cal the sgn thing, bubbling up from the bottom to top takes r+s-1 swaps, and it takes s times to move those lines up. So, in total $s(r+s-1) = sr+s(s-1) \sim rs$ swaps. \\
+
+\[
+	f\wedge g(x) = (-1)^{rs} g \wedge f(x)
+\]\\
+
+
+$f^1,f^2,\cdots,f^r \in V^*$, $f^1\wedge f^2 \wedge \cdots \wedge f^r \in   \Lambda^r V^*$ \,, $x_1, x_2, \cdots, x_r \in V$
+
+\begin{align*}
+	f^1\wedge f^2 \wedge \cdots \wedge f^r (x_1, x_2, \cdots, x_r) &= r![f^1\otimes f^2 \otimes \cdots \otimes f^r](x_1, x_2, \cdots, x_r) \\
+	&=\sum_{\sigma \in S_r} \mathrm{sgn}\sigma f^1(x_{\sigma(1)})f^2(x_{\sigma(2)})\cdots f^r(x_{\sigma(r)}) \\
+	&=\begin{vmatrix}
+	f^1(x_1) &f^1(x_2) &\cdots &f^1(x_r) \\
+	f^2(x_1) &f^2(x_2) &\cdots &f^2(x_r) \\
+	\vdots&\vdots&\cdots &\vdots\\
+	f^r(x_1) &f^r(x_2) &\cdots &f^r(x_r)
+	\end{vmatrix}
+\end{align*}
+
+\begin{align*}
+	\delta^{i_1} \wedge \delta^{i_1} \wedge \cdots \delta^{i_r} (\delta_{j_1},\delta_{j_2},\cdots,\delta_{j_r}) 
+	&=\begin{vmatrix}
+		\delta^{i_1}_{j_1} & \delta^{i_1}_{j_2} & \cdots &\delta^{i_1}_{j_r} \\
+		\delta^{i_2}_{j_1} & \delta^{i_2}_{j_2} & \cdots &\delta^{i_2}_{j_r} \\
+		\vdots&\vdots&\cdots &\vdots\\
+		\delta^{i_r}_{j_1} & \delta^{i_r}_{j_2} & \cdots &\delta^{i_r}_{j_r}
+	\end{vmatrix}\\
+	&=\delta^{i_1 i_2 \cdots i_r}_{j_1 j_2 \cdots j_r} \\
+	&=\begin{cases}
+		1, & P(i_1, i_2 ,\cdots , i_r) \neq 0, \sigma(i) = j, \mathrm{sgn}\sigma = 1 \\
+		-1, & P(i_1, i_2 ,\cdots , i_r) \neq 0, \sigma(i) = j, \mathrm{sgn}\sigma = -1 \\
+		0, &else
+	\end{cases} 	
+\end{align*}
+
+Vandermonde polynomial $P(x_1,x_2,\cdots,x_r) = \prod_{1 \leq i \neq j \leq r}(x_i - x_j)$
+
+
+\[
+	f^{\sigma(1)}\wedge f^{\sigma(2)} \wedge \cdots \wedge f^{\sigma(r)}  = \mathrm{sgn}\sigma f^1\wedge f^2 \wedge \cdots \wedge f^r 
+\]
+
+\[
+	\delta^{\sigma(i_1)}\wedge \delta^{\sigma(i_2)} \wedge \cdots \wedge \delta^{\sigma(i_r)}  = \mathrm{sgn}\sigma \delta^{i_1}\wedge \delta^{i_2} \wedge \cdots \wedge \delta^{i_r}
+\]
+
+if $P(i_1, i_2 ,\cdots , i_r) \neq 0$, 
+\[
+\mathrm{sgn}\sigma = \delta^{i_1 i_2 \cdots i_r}_{\sigma(i_1) \sigma(i_2) \cdots \sigma(i_r)} = \delta_{i_1 i_2 \cdots i_r}^{\sigma(i_1) \sigma(i_2) \cdots \sigma(i_r)} 
+\]
+
+there are r! of the $\delta^{j_1}\wedge \delta^{j_2} \wedge \cdots \wedge \delta^{j_r}$ that are equivalent.
+
+
+\[
+\delta^{j_1}\wedge \delta^{j_2} \wedge \cdots \wedge \delta^{j_r} = \frac{1}{r!}\sum_{i_1,i_2,\cdots,i_r}\delta^{j_1 j_2 \cdots j_r}_{i_1 i_2 \cdots i_r}\delta^{i_1}\wedge \delta^{i_2} \wedge \cdots \wedge \delta^{i_r}
+\]
+
+use tensor contraction
+\[
+\delta^{j_1}\wedge \delta^{j_2} \wedge \cdots \wedge \delta^{j_r} = \frac{1}{r!}\delta^{j_1 j_2 \cdots j_r}_{i_1 i_2 \cdots i_r}\delta^{i_1}\wedge \delta^{i_2} \wedge \cdots \wedge \delta^{i_r}
+\]
+
+$\{\delta^i\}$ span $ V^* $, $\{\delta^{i_1} \wedge \delta^{i_2} \wedge \cdots \wedge \delta^{i_r}\}$ span $\Lambda^r V^*$ , $\mathrm{dim} \Lambda^rV^* = C^{r}_{n}$. ($ 1 \leq i_1 < \cdots < i_r \leq n $, $r \leq n$)\\
+
+In matrix case, symmetry $a_{ij} = a_{ji}$ and anti-symmetry $a_{ij} = -a_{ji}$\\
+
+
+$S = \{1,2,\cdots,n\}$, $\sigma = (i,j)$
+\begin{align*}
+	\text{symmetry}&:a_{ij} = a_{\sigma(i)\sigma(j)} = a_{ji} \\
+	\text{anti-symmetry}&: a_{ij} = -a_{\sigma(i)\sigma(j)} =-a_{ji}
+\end{align*}
+
+general case, \\
+\[
+\sigma = \begin{pmatrix}
+i_1,i_2, \cdots, i_r \\
+j_1,j_2, \cdots, j_r
+\end{pmatrix}
+\]
+
+
+\begin{align*}
+	\text{symmetry}&:a_{i_1,i_2, \cdots, i_r} =  a_{j_1,j_2, \cdots, j_r} \\
+	\text{anti-symmetry}&:a_{i_1,i_2, \cdots, i_r} =  \mathrm{sgn}\sigma a_{j_1,j_2, \cdots, j_r} \\
+\end{align*}
+
+
+$\{x_1,x_2,\cdots, x_n\}$ spans V 
+\[
+	x_i \wedge x_j = - x_j \wedge x_i
+\]
+
+\[
+	x_i \wedge x_i = - x_i \wedge x_i = 0
+\]
+
+exterior polynomials, with $\wedge$ as multiplication
+\begin{align*}
+	\text{1}^{st}&\text{-order } \Lambda^1 V  : a^i x_i \\
+	\text{2}^{nd}&\text{-order } \Lambda^2V : a^{ij}x_i \wedge x_j \\
+	\vdots&&\vdots\\
+	\text{k}^{th}&\text{-order } \Lambda^kV : a^{i_1 i_2 \cdots i_k}x_{i_1} \wedge x_{i_2} \wedge \cdots \wedge x_{i_k}
+\end{align*}
+
+\[
+	\Lambda(V) = \sum_{k = 0}^{n} \Lambda^k V
+\]
+
+$\varphi$ r-form, $\psi$ s-form
+\[
+	d(\varphi \wedge \psi) = d\varphi \wedge \psi + (-1)^{r} \varphi \wedge d \psi
+\]
+
+
+\[
+\int_S \omega = \int\int\cdots\int \omega_{\varphi(u_1,u_2,\cdots,u_n)}\left( 
+	\frac{\partial \varphi}{\partial u_1},\frac{\partial \varphi}{\partial u_2},\cdots,\frac{\partial \varphi}{\partial u_n} 
+	\right) du_1du_2\cdots du_n
+\]
+
+
+\[
+df = \frac{\partial f}{\partial x} dx +\frac{\partial f}{\partial y} dy+\frac{\partial f}{\partial z} dz
+\]
+
+\[
+a = Adx + Bdy + Cdz
+\]
+\begin{align*}
+da & = dA \wedge dx + dB \wedge dy + dC \wedge dz \\
+ & = (\frac{\partial A}{\partial y}dy + \frac{\partial A}{\partial z}dz) \wedge dx 
+  + (\frac{\partial B}{\partial x}dx + \frac{\partial B}{\partial z}dz) \wedge dy 
+  + (\frac{\partial C}{\partial x}dx + \frac{\partial C}{\partial y}dy) \wedge dz \\
+ & = \left(\frac{\partial C}{\partial y} - \frac{\partial B}{\partial z} \right) dy \wedge dz
+  + \left(\frac{\partial A}{\partial z} - \frac{\partial C}{\partial x} \right) dz \wedge dx
+  + \left(\frac{\partial B}{\partial x} - \frac{\partial A}{\partial y} \right) dx \wedge dy
+\end{align*}
+
+\[
+a = Ady\wedge dz + Bdz \wedge dx + Cdx \wedge dy
+\]
+
+\[
+da = \left( \frac{\partial A}{\partial x} + \frac{\partial B}{\partial y}+ \frac{\partial C}{\partial z}  \right) dx\wedge dy \wedge dz
+\]
+
+
+\[
+T^r_s(p) = \underbrace{T_p \otimes \cdots \otimes T_p}_r \otimes \underbrace{T_p^* \otimes \cdots \otimes T_p^*}_s
+\]
+
+\[
+T^r_s = \bigcup_{p \in M}T^r_s(p)
+\]
+
+\[
+V^r_s = \mathrm{span}\{
+	e_{i_1} \otimes \cdots \otimes e_{i_r} 
+	\otimes 
+	e^{*j_1} \otimes \cdots \otimes e^{*j_s}
+	\} \quad 1 \leq i_{\alpha}, j_{\alpha} \leq m 
+\]
+
+\[
+\varphi_U : U \times V^r_s \rightarrow \bigcup_{p \in U}T^r_s(p)
+\]
+
+\[
+\varphi_{U,p} = \varphi(p,y) \quad y \in V^r_s
+\]
+
+\[
+g_{UW}(p) = \varphi_{W,p}^{-1} \circ \varphi_{U,p} : V^r_s \rightarrow V^r_s
+\]
+
+\[
+g_{UW}(p) \in GL(V^r_s)
+\]
+
+\[
+\varphi_U(p,y) = \varphi_W(p,y')  \quad \Leftrightarrow \quad y' = y \cdot g_{UW}(p)
+\]
+
+
+\[
+\begin{cases}
+  \displaystyle du^i  = \frac{\partial u^i}{\partial w^j}dw^j \\
+  \scriptscriptstyle \\
+ \displaystyle \frac{\partial}{\partial u^i}  =  \frac{\partial w^j}{\partial u^i} \frac{\partial}{\partial w^j} \\
+ \end{cases}
+\]
+
+
+\[
+\pi: T^r_s \rightarrow M
+\]
+
+
+Generally, $M$ with $\{U,W,Z,\cdots\}$ and  $\{\varphi_U,\varphi_W,\varphi_Z,\cdots\}$, $V = \mathbb{R}^q$
+
+\[
+\pi: E \rightarrow M
+\]
+
+Poisson bracket
+
+\[
+[X,Y] = XY - YX
+\]
+
+\[
+[X,Y]f = X(Yf) - Y(Xf)
+\]
+
+\[
+[X,Y](f+g) = [X,Y]f + [X,Y]g
+\]
+
+\[
+[X,Y](fg) = f\cdot [X,Y]g + g \cdot [X,Y]f
+\]
+
+\[
+[X,Y] = -[Y,X]
+\]
+
+\[
+[X+Y,Z] = [X,Z] + [Y,Z]
+\]
+
+\[
+[fX,gY] = f\cdot (Xg)Y - g \cdot (Yf)X + f\cdot g [X,Y]
+\]
+
+\[
+[X,[Y,Z]] + [Y,[Z,X]]+[Z,[X,Y]] = 0
+\]
+
+
+\[
+[X,Y]|_U = [X|_U,Y|_U]
+\]
+
+\[
+X|_U = \xi^j\frac{\partial}{\partial u^j} \quad Y|_U = \eta^j\frac{\partial}{\partial u^j} 
+\]
+
+
+\[
+ [\frac{\partial}{\partial u^i},\frac{\partial}{\partial u^j}] = 0
+\]
+
+\[
+[X,Y] = (\xi^i\frac{\partial\eta^j}{\partial u^i} - \eta^i\frac{\partial\xi^j}{\partial u^i})\frac{\partial}{\partial u^j} 
+\]
+
+
+
+
+\begin{align*}
+<X,df> &=  \displaystyle \xi^j\frac{\partial f}{\partial u^j}du^j\\
+& = Xf
+\end{align*}
+
+
+
+
+
+
+\[
+de_i = \omega^{ij}e_j
+\]
+
+\[
+(e_i,e_j) = \delta_{ij} \Rightarrow \omega^{ij} + \omega^{ji} = 0
+\]
+
+\[
+dx = \omega^1 e_1 + \omega^2 e_2
+\]
+
+\[
+ddx = 0
+\]
+
+\[
+d\omega^1 e_1 - \omega^1 \wedge de_1 + d\omega^2 e_2 - \omega^2 \wedge de_2 = 0
+\]
+
+\[
+d\omega^1 e_1 - \omega^1 \wedge (\omega^{12}e_2+\omega^{13}e_3) + d\omega^2 e_2 -  \omega^2 \wedge (\omega^{21}e_1+\omega^{23}e_3) = 0
+\]
+
+\[
+(d\omega^1-\omega^2 \wedge \omega^{21}) e_1 + (d\omega^2 - \omega^1 \wedge \omega^{12}) e_2 - (\omega^1 \wedge \omega^{13} + \omega^2 \wedge \omega^{23}) e_3= 0
+\]
+
+\[
+d\omega^1 = \omega^2 \wedge \omega^{21} 
+\]
+
+\[ 
+d \omega^2 = \omega^1 \wedge \omega^{12}
+\]
+
+\[
+ \omega^1 \wedge \omega^{13} + \omega^2 \wedge \omega^{23} = 0
+\]
+
+
+\[
+De_1= \omega^{12}e_2 \quad De_2 = \omega^{21}e_1
+\]
+
+\[
+dde_i = 0 \Rightarrow d\omega^{ij} e_j - \omega^{ij} \wedge de_j = 0
+\]
+
+\[
+d\omega^{ij} e_j - \omega^{ik} \wedge de_k = 0
+\]
+
+\[
+d\omega^{ij} e_j - \omega^{ik} \wedge (\omega^{kl}e_l) = 0
+\]
+
+\[
+d\omega^{ij} = \omega^{ik} \wedge \omega^{kj}
+\]
+
+\[
+\omega^1 \wedge \omega^{13} + \omega^2 \wedge \omega^{23} = 0 
+\]
+
+\[
+\omega^{13} = a\omega^1 + b \omega^2 \quad \omega^{23} = b\omega^1 + c\omega^2
+\]
+
+\[
+\mathrm{I} = d^2s = (dx,dx) = (\omega^1)^2 + (\omega^2)^2
+\] 
+
+\[
+\mathrm{II} = (-dx,de^3) 
+\]
+\begin{align*}
+(-dx,de^3) & = (\omega^1e_1 + \omega^2 e_2, -\omega^{31}e_1 + -\omega^{32}e_2) \\
+& = (\omega^1e_1 + \omega^2 e_2, (a\omega^1 + b \omega^2)e_1 + (b\omega^1+c\omega^2)e_2) \\
+& = a(\omega^1)^2 + 2b\omega^1\omega^2 + c(\omega^2)^2
+\end{align*}
+
+\[
+H = \frac{a+c}{2}
+\]
+
+\[
+K = ac-b^2 
+\]
+
+\[
+\omega^{31} \wedge \omega^{32} = (a\omega^1 + b \omega^2) \wedge (b\omega^1+c\omega^2) = (ac-b^2) \omega^1 \wedge \omega^2
+\]
+
+\[
+d\omega^{12} = \omega^{13} \wedge \omega^{32} = -\omega^{31} \wedge \omega^{32}
+\]
+
+\[
+d\omega^{12}  =-K\omega^1 \wedge \omega^2
+\]
+
+
+
+
+\[
+v_i \in V \quad v^{*i} \in V^*
+\]
+\[
+<v_1 \otimes \cdots \otimes v_r, v^{*1} \otimes \cdots \otimes v^{*r}> = <v_1,v^{*1}>\cdots<v_r,v^{*r}>
+\]
+
+\[
+v_1 \wedge \cdots \wedge v_r \in \Lambda^r(V) \quad v^{*1} \wedge \cdots \wedge v^{*r} \in \Lambda^r(V^*)
+\]
+\[
+<v_1 \wedge \cdots \wedge v_r ,v^{*1} \wedge \cdots \wedge v^{*r} > = \mathrm{det}(<v_i,v^{*j}>)
+\]
+
+\[
+v_i,w_i \in V
+\]
+\[
+\sum_{i=1}^n v_i \wedge w_i = 0 \Rightarrow w_i = \sum_{j=1}^n a^{ij}v_j \quad a^{ij} = a^{ji}
+\]
+
+\[
+v_i \in V \quad w \in \Lambda^p(V) \quad \psi_i \in \Lambda^{p-1}(V)
+\]
+\[
+w = v_1 \wedge \psi_1 + \cdots +  v_r \wedge \psi_r \Leftrightarrow v_1 \wedge \cdots \wedge v_r \wedge w =0
+\]
+\[
+w \equiv 0 \quad mod(v_1,\cdots, v_r)
+\]
+
+
+\[
+\{O;i,j,k\} \rightarrow \{P;e_1,e_2,e_3\}
+\]
+\[
+\left[
+\begin{array}{c}
+\overrightarrow{OP} \\ e_1 \\e_2 \\e_3
+\end{array}
+\right] = \left[
+\begin{array}{ccc}
+a_1 & a_2 & a_3 \\
+a_{11} & a_{12} & a_{13} \\
+a_{21} & a_{22} & a_{23} \\
+a_{31} & a_{32} & a_{33} \\
+\end{array}
+\right] \left[
+\begin{array}{c}
+i \\j\\k\\
+\end{array}
+\right]
+\]
+\[
+\mathrm{det}(a_{ij}) \neq 0
+\]
+
+\[
+d\overrightarrow{OP} = \Omega^ie_i \quad de_i = \Omega^j_ie_j
+\]
+\[
+\sum_{k = 1} ^3 b_{ik}a_{kj} = \delta_{ij}
+\]
+
+\[
+\left[
+\begin{array}{c}
+i \\ j \\ k
+\end{array}
+\right] = \left[
+\begin{array}{ccc}
+b_{11} & b_{12} & b_{13} \\
+b_{21} & b_{22} & b_{23} \\
+b_{31} & b_{32} & b_{33} \\
+\end{array}
+\right] \left[
+\begin{array}{c}
+e_1\\e_2\\e_3\\
+\end{array}
+\right]
+\]
+
+\[
+\left[
+\begin{array}{c}
+d\overrightarrow{OP} \\ de_1 \\de_2 \\de_3
+\end{array}
+\right] = \left[
+\begin{array}{ccc}
+da_1 & da_2 & da_3 \\
+da_{11} & da_{12} & da_{13} \\
+da_{21} & da_{22} & da_{23} \\
+da_{31} & da_{32} & da_{33} \\
+\end{array}
+\right] \left[
+\begin{array}{c}
+i \\j\\k\\
+\end{array}
+\right]
+\]
+
+\[
+\Omega^i = \sum_{k = 1}^3 da_{k} \cdot b_{ki}
+\quad
+\Omega_i^j = \sum_{k = 1}^3 da_{ik}\cdot b_{kj}
+\]
+
+\[
+\begin{cases}
+d\Omega^i & =  \Omega^j \wedge \Omega^i_j \\
+d\Omega^i_j &=  \Omega^k_j \wedge \Omega^i_k
+\end{cases}
+\]
+
+\[
+(e_i,e_j) = \delta_{ij}  \Rightarrow b_{ij} = a_{ji}
+\]
+\[
+\Omega_i = \sum_{k = 1}^3 da_{k} \cdot a_{ik}
+\quad
+\Omega_i^j = \sum_{k = 1}^3 da_{ik}\cdot a_{jk}
+\quad
+\Omega_i^j + \Omega_j^i = 0
+\]
+
+
+\[
+\begin{cases}
+a_i & = a_i(u^\alpha) \\
+a_{ij} & = a_{ij}(u^\alpha)
+\end{cases}
+\]
+\[
+x = \overrightarrow{OP} \quad dx = \omega^ie_i \quad de_i = \omega^j_i e_j
+\]
+\[
+\begin{cases}
+d\omega^i &= \omega^j \wedge \omega^i_j \\
+d\omega^i_j &= \omega^k_j \wedge \omega^i_k \\
+\end{cases}
+\]
+\[
+\omega^i_j + \omega^j_i = 0 \quad \mathrm{if} (e_i,e_j) = \delta_{ij}
+\]
+
+
+\[
+\left[
+\begin{array}{c}
+e^*_1 \\ e^*_2 \\ e^*_3
+\end{array}
+\right] = \left[
+\begin{array}{ccc}
+\cos\theta & \sin\theta & 0 \\
+-\sin\theta & \cos\theta & 0 \\
+0 & 0 & 1 \\
+\end{array}
+\right] \left[
+\begin{array}{c}
+e_1\\e_2\\e_3\\
+\end{array}
+\right] = A(\theta)\left[
+\begin{array}{c}
+e_1\\e_2\\e_3\\
+\end{array}
+\right] 
+\]
+
+\[
+e^*_i = a^j_i e_j \quad e_i = b^j_i e^*_j \quad b^i_ka^k_j = \delta^i_j \quad b^i_j = a^j_i
+\]
+\[
+dr = \tilde{\omega}^ie^*_i = \tilde{\omega}^ia^j_i e_j=\omega^je_j \Rightarrow \omega^i = a^i_j\tilde{\omega}^j
+\]
+\[
+\tilde{\omega}^ia^j_i = \omega^j \Rightarrow \tilde{\omega}^ib^k_ja^j_i = b^k_j\omega^j \Rightarrow \tilde{\omega}^i =  b^i_j\omega^j
+\]
+
+\[
+de_i = \omega^j_i e_j = d(b^k_ie^*_k) = db^k_i e^*_k + b^k_i de^*_k = db^k_i e^*_k + b^k_i \tilde{\omega}^j_ke^*_j = (db^j_i+ b^k_i \tilde{\omega}^j_k)e^*_j
+\]
+
+\[\omega^j_i e_j = \omega^j_i b^k_je^*_k = \omega^k_i b^j_ke^*_j= (db^j_i+ b^k_i \tilde{\omega}^j_k)e^*_j
+\]
+\[
+ \omega^k_i b^j_k= (db^j_i+ b^k_i \tilde{\omega}^j_k)
+\]
+\[
+ b^k_i \tilde{\omega}^j_k = \omega^k_i b^j_k- db^j_i
+\]
+\[
+ a^k_sb^i_k \tilde{\omega}^j_i = a^k_s\omega^i_k b^j_i- a^k_sdb^j_k
+\]
+\[
+\tilde{\omega}^j_i = a^k_i\omega^s_k b^j_s -  a^k_i db^j_k
+\]
+\[
+\omega^j_i =  b^s_i\tilde{\omega}^k_s a^j_k+ db^k_i \cdot a^j_k
+\]
+\[
+\omega^j_i =  b^s_i\tilde{\omega}^k_s a^j_k+  b^k_jda^i_k
+\]
+
+\[
+A^{col}_{row}
+\]
+
+\[
+\left[
+\begin{array}{ccc}
+0 & \tilde{\omega}^2_1 & \tilde{\omega}^3_1 \\
+\tilde{\omega}^1_2 & 0 & \tilde{\omega}^3_2 \\
+\tilde{\omega}^1_3 & \tilde{\omega}^2_3 & 0 \\
+\end{array}
+\right]  = \left[
+\begin{array}{ccc}
+\cos\theta & \sin\theta & 0 \\
+-\sin\theta & \cos\theta & 0 \\
+0 & 0 & 1 \\
+\end{array}
+\right]
+\left[
+\begin{array}{ccc}
+0 & \omega^2_1 & \omega^3_1 \\
+\omega^1_2 & 0 & \omega^3_2 \\
+\omega^1_3 & \omega^2_3 & 0 \\
+\end{array}
+\right] 
+\left[
+\begin{array}{ccc}
+\cos\theta & -\sin\theta & 0 \\
+\sin\theta & \cos\theta & 0 \\
+0 & 0 & 1 \\
+\end{array}
+\right]- a^k_idb^j_k
+\]
+
+\[
+\left[
+\begin{array}{ccc}
+0 & \tilde{\omega}^2_1 & \tilde{\omega}^3_1 \\
+\tilde{\omega}^1_2 & 0 & \tilde{\omega}^3_2 \\
+\tilde{\omega}^1_3 & \tilde{\omega}^2_3 & 0 \\
+\end{array}
+\right]  = 
+\left[
+\begin{array}{ccc}
+\omega^1_2\sin\theta & \omega^2_1\cos\theta & \omega^3_1\cos\theta+\omega^3_2\sin\theta \\
+\omega^1_2\cos\theta & -\omega^2_1\sin\theta & -\omega^3_1\sin\theta+\omega^3_2\cos\theta  \\
+\omega^1_3 & \omega^2_3 & 0 \\
+\end{array}
+\right] 
+\left[
+\begin{array}{ccc}
+\cos\theta & -\sin\theta & 0 \\
+\sin\theta & \cos\theta & 0 \\
+0 & 0 & 1 \\
+\end{array}
+\right]- a^k_idb^j_k
+\]
+
+
+
+\[
+\left[
+\begin{array}{ccc}
+0 & \tilde{\omega}^2_1 & \tilde{\omega}^3_1 \\
+\tilde{\omega}^1_2 & 0 & \tilde{\omega}^3_2 \\
+\tilde{\omega}^1_3 & \tilde{\omega}^2_3 & 0 \\
+\end{array}
+\right]  = 
+\left[
+\begin{array}{ccc}
+0 & \omega^2_1 & \omega^3_1\cos\theta+\omega^3_2\sin\theta \\
+\omega^1_2 & 0 & -\omega^3_1\sin\theta+\omega^3_2\cos\theta  \\
+\omega^1_3\cos\theta+\omega^2_3\sin\theta  &  -\omega^1_3\sin\theta+\omega^2_3\cos\theta & 0 \\
+\end{array}
+\right] - a^k_idb^j_k
+\]
+
+\[
+a^k_idb^j_k = \left[
+\begin{array}{ccc}
+\cos\theta & \sin\theta & 0 \\
+-\sin\theta & \cos\theta & 0 \\
+0 & 0 & 1 \\
+\end{array}
+\right]\left[
+\begin{array}{ccc}
+-\sin\theta d\theta & -\cos\theta d\theta  & 0 \\
+\cos\theta d\theta  & -\sin\theta d\theta  & 0 \\
+0 & 0 & 0 \\
+\end{array}
+\right]=\left[
+\begin{array}{ccc}
+0 & -d\theta  & 0 \\
+d\theta  & 0  & 0 \\
+0 & 0 & 0 \\
+\end{array}
+\right]
+\]
+
+
+\[
+\left[
+\begin{array}{ccc}
+0 & \tilde{\omega}^2_1 & \tilde{\omega}^3_1 \\
+\tilde{\omega}^1_2 & 0 & \tilde{\omega}^3_2 \\
+\tilde{\omega}^1_3 & \tilde{\omega}^2_3 & 0 \\
+\end{array}
+\right]  = 
+\left[
+\begin{array}{ccc}
+0 & \omega^2_1 + d\theta& \omega^3_1\cos\theta+\omega^3_2\sin\theta \\
+\omega^1_2 - d\theta & 0 & -\omega^3_1\sin\theta+\omega^3_2\cos\theta  \\
+\omega^1_3\cos\theta+\omega^2_3\sin\theta  &  -\omega^1_3\sin\theta+\omega^2_3\cos\theta & 0 \\
+\end{array}
+\right]
+\]
+
+\[
+\tilde{w}^i = \tilde{\omega}^k\tilde{c}^i_k = b^k_j \omega^j \tilde{c}^i_k
+\]
+\[
+w^i = \omega^kc^i_k \quad \tilde{w}^i = b^i_jw^j
+\]
+\[
+b^i_jw^j = b^i_j\omega^kc^j_k =  b^i_k\omega^jc^k_j = b^k_j \omega^j \tilde{c}^i_k
+\]
+\[
+b^i_kc^k_j = b^k_j \tilde{c}^i_k
+\]
+\[
+a^j_sb^i_lc^l_j = a^j_sb^k_j \tilde{c}^i_k \quad \tilde{c}^i_k = a^j_kc^s_jb^i_s
+\]
+
+\[
+(\omega^1)^2 + (\omega^2)^2 \quad
+\omega^1\omega^3_1 + \omega^2\omega^3_2 \quad
+(\omega^3_1)^2 + (\omega^3_2)^2
+\]
+\[
+\omega^1 \wedge \omega^2 \quad \omega^3_1 \wedge \omega^3_2 \quad \omega^1 \wedge \omega^3_2 - \omega^2 \wedge \omega^3_1 \quad \omega^1\omega^3_2 - \omega^2\omega^3_1
+\]
+
+\[
+ \omega^3_1 \wedge \omega^3_2  = (ac-b^2)\omega^1 \wedge \omega^2
+\]
+\[
+\omega^1 \wedge \omega^3_2 - \omega^2 \wedge \omega^3_1= (a+c)\omega^1 \wedge \omega^2
+\]
+\[
+\omega^3_1 \wedge \omega^3_2 = a(\omega^1)^2 + 2b\omega^1\omega^2 + c(\omega^2)^2
+\]
+\[
+\omega^1\omega^3_2 - \omega^2\omega^3_1= b(\omega^1)^2 + (c-a)\omega^1\omega^2 -b(\omega^2)^2
+\]
+
+\[
+X = x^1 e_1 + x^2 e_2 \quad De_1 = \omega^2_1 e_2 \quad De_2 = \omega^1_2 e_1
+\]
+\[
+DX = dx^1 e_1 + x^1 De_1 + dx^2 e_2 + x^2 De_2
+\]
+\[
+\begin{cases}
+Dx^1 = dx^1 + x^2\omega^1_2 \\
+Dx^2 = dx^2 + x^1\omega^2_1 \\
+\end{cases}
+\]
+
+
+
+\[
+S: r = r(u^1,u^2)
+\]
+\[
+\{r;r_1,r_2,n\} \quad r_i = \frac{\partial r}{\partial u^i} \quad n = \frac{r_1 \times r_2}{|r_1 \times r_2|}
+\]
+
+\[
+g_{ij} = (r_i,r_j) \quad b_{ij} = (r_{ij},n) = (-r_i,n_j) = (-r_j,n_i)
+\]
+
+\[
+\mathrm{I} = g_{ij}du^idu^j \quad \mathrm{II} = b_{ij}du^idu^j
+\]
+
+\[
+g^{ik}g_{kj} = \delta^i_j \quad b^i_j = b_{kj}g^{kj}
+\]
+
+\[
+\begin{cases}
+\displaystyle \frac{\partial r_i}{\partial u_j} &= \Gamma^k_{ij} r_k + b_{ij} n \\
+\\
+\displaystyle \frac{\partial n}{\partial u_j} &= -b^i_jr_i \\
+\end{cases}
+\]
+
+\[
+\Gamma^k_{ij} = g^{ks}\Gamma_{sij} = \frac{1}{2}g^{ks}\left( \frac{\partial g_{is}}{\partial u_j}+ \frac{\partial g_{sj}}{\partial u_i} -  \frac{\partial g_{ij}}{\partial u_s}\right)
+\]
+
+\[
+R^s_{ijk} = \frac{\partial\Gamma^s_{ij}}{\partial u_k} - \frac{\partial\Gamma^s_{ik}}{\partial u_j} + \Gamma^l_{ij}\Gamma^s_{lk} - \Gamma^l_{ik}\Gamma^s_{lj}
+\]
+
+\[
+R_{sijk} = g_{ls}R^l_{ijk} \quad R^s_{ijk} = g^{sl}R_{lijk}
+\]
+
+\[
+R_{sijk} = R_{jksi} = -R_{isjk} = -R_{sikj}
+\]
+
+\[
+\begin{cases}
+R_{sijk} = -(b_{sj}b_{ik} - b_{sk}b_{ij}) \\
+\\
+\displaystyle \frac{\partial b_{ij}}{\partial u_k} - \frac{\partial b_{ik}}{\partial u_j} = b_{jl} \Gamma^l_{ik} - b_{kl}\Gamma^l_{ij}
+\end{cases}
+\]
+
+\[
+r = r(u_1(s),u_2(s))
+\]
+
+\[
+\left\{
+\begin{array}{llll}
+\displaystyle \frac{dr}{ds} &= e_1 && \\
+\\
+\displaystyle \frac{de_1}{ds} &= &k_ge_2&+k_ne_3 \\
+\\
+\displaystyle \frac{de_2}{ds} &=-k_ge_1 & &+\tau_ge_3 \\
+\\
+\displaystyle \frac{de_3}{ds} &= -k_ne_1&+\tau_ge_2& \\
+\end{array}
+\right.
+\]
+\[
+k_n  =( \frac{d^2r}{ds^2} ,n) \quad k_g = (n,\frac{dr}{ds},\frac{d^2r}{ds^2}) \quad \tau_g = (n,\frac{dn}{ds},\frac{dr}{ds})
+\]
+
+\[
+\frac{d^2u^k}{ds^2} + \Gamma^k_{ij} \frac{du^i}{ds}\frac{du^j}{ds} = 0
+\]
+
+\[
+X(u^1,u^2) = x^i(u^1,u^2)r_i(u^1,u^2)
+\]
+\[
+dX = dx^i \cdot r_i + x^i dr_i = r_idx^i + x^i(\Gamma^k_{ij}r_kdu^j + b_{ij}du^jn)
+\]
+\[
+dX = r_kdx^k + x^i(\Gamma^k_{ij}r_kdu^j + b_{ij}du^jn)
+\]
+\[
+DX =(dx^k + x^i\Gamma^k_{ij}du^j)r_k
+\]
+
+\[
+\Gamma^3_{ij} = b_{ij} \quad b^i_j = \Gamma^i_{3j}
+\]
+
+
+\[
+\omega^i = du^i \quad \omega^i_j = \Gamma^i_{jk}du^k
+\]
+\[
+0= d\omega^i = \omega^j \wedge \omega^i_j = du^j \wedge \Gamma^i_{jk}du^k = \frac{1}{2}\Gamma^i_{jk}(du^j\wedge du^k + du^k \wedge du^j) = 0
+\]
+\[
+d\omega^i_j = \omega^k_j \wedge \omega^i_k
+\]
+\[
+d\omega^i_j = d\Gamma^i_{jk}du^k = \frac{1}{2}\left(\frac{\partial \Gamma^i_{jk}}{\partial u^s} - \frac{\partial \Gamma^i_{js}}{\partial u^k}\right)du^s \wedge du^k
+\]
+\[
+\omega^k_j \wedge \omega^i_k = \Gamma^k_{js}du^s \wedge \Gamma^i_{kl}du^l = \frac{1}{2}\left( 
+\Gamma^i_{kl}\Gamma^k_{js} - \Gamma^i_{ks}\Gamma^k_{jl}
+\right) du^s \wedge du^l
+\]
+\[
+d\omega^i_j - \omega^k_j \wedge \omega^i_k = \frac{1}{2}\left(
+\frac{\partial \Gamma^i_{jl}}{\partial u^s} - \frac{\partial \Gamma^i_{js}}{\partial u^l} + \Gamma^i_{ks}\Gamma^k_{jl} - \Gamma^i_{kl}\Gamma^k_{js}
+\right)du^s \wedge du^l
+\]
+\[
+R^s_{ijk} = \frac{\partial\Gamma^s_{ij}}{\partial u_k} - \frac{\partial\Gamma^s_{ik}}{\partial u_j} + \Gamma^l_{ij}\Gamma^s_{lk} - \Gamma^l_{ik}\Gamma^s_{lj}
+\quad (l \leq 2)
+\]
+\[
+R^i_{jls} = \frac{\partial\Gamma^i_{jl}}{\partial u_s} - \frac{\partial\Gamma^i_{js}}{\partial u_l} + \Gamma^k_{jl}\Gamma^i_{ks} - \Gamma^k_{js}\Gamma^i_{kl}
+\quad (k \leq 2)
+\]
+\[
+\tilde{R}^i_{jls} = R^i_{jls} + \Gamma^3_{jl}\Gamma^i_{3s} - \Gamma^3_{js}\Gamma^i_{3l}
+\]
+\[
+d\omega^i_j - \omega^k_j \wedge \omega^i_k = \frac{1}{2}\tilde{R}^i_{jls}du^s \wedge du^l =0
+\]
+
+
+
+\[
+\Gamma (E) = \{s:M \rightarrow E| \pi \circ s = id: M \rightarrow M, (E,M,\pi)\}
+\]
+
+\[
+\Lambda^r (M^*) = \bigcup_{p \in M} \Lambda^r( T_p^*) \quad A^r(M) = \Gamma(\Lambda^r (M^*)) \quad A(M) = \sum_{r = 0}^m A^r(M)
+\]
+
+\[
+\begin{cases}
+Z^r(M,R) = \{\omega \in A^r(M) | d\omega = 0\} \\
+B^r(M,R) = \{\omega \in A^r(M) | d\beta = \omega, \beta \in A^{r-1}(M)\}
+\end{cases}
+\]
+
+\[
+d^2 \beta = 0 \Rightarrow B^r(M,R) \subset Z^r(M,R)
+\]
+
+\[
+H^r(M,R) = Z^r(M,R) / B^r(M,R) \quad \mathrm{dim} \,H^r(M,R) = b_r
+\]
+
+\[
+d: A(M) \rightarrow A(M) \quad d(A^r(M)) \subset A^{r+1}(M)
+\]
+\[
+D: \Gamma(E) \rightarrow \Gamma(T^*(M)\otimes E) 
+\]
+
+\[
+a \in C^{\infty} (M) = \Gamma(R) \quad X \in \Gamma(T(M)) \quad s \in \Gamma(E) \quad Ds \in \Gamma(T(M^*)\otimes E)
+\]
+\[
+D(as) = da \otimes s + aDs
+\]
+\[
+D_X s = <X,Ds>
+\]
+\[
+D_X s \in \Gamma(<T(M),T(M^*)>E)=\Gamma(E)
+\]
+\[
+D: \Gamma(T(M)) \times \Gamma(E) \rightarrow   \Gamma(E) 
+\]
+
+\begin{align*}
+D_X(as) & = <X,D(as)> \\
+& = <X,da\otimes s> + <X,aDs> \\
+& = Xa \otimes s + aD_X s
+\end{align*}
+
+\begin{align*}
+Ds_{\alpha} & = \Gamma^{\beta}_{\alpha i} du^i \otimes s_{\beta} \\
+& = \omega^{\beta}_{\alpha} \otimes s_{\beta}
+\end{align*}
+\[\omega^{\beta}_{\alpha} = \Gamma^{\beta}_{\alpha i} du^i\]
+
+\[
+S = \left[\begin{array}{c}
+s_1 \\ \vdots  \\ s_q
+\end{array}
+\right] \quad
+\omega = \left[\begin{array}{ccc}
+\omega_1^1 & \cdots  & \omega_1^q \\
+\vdots &\cdots & \vdots \\
+\omega_q^1 & \cdots & \omega_q^q \\
+\end{array}
+\right]
+\quad
+A= \left[\begin{array}{ccc}
+a_1^1 & \cdots  & a_1^q \\
+\vdots &\cdots & \vdots \\
+a_q^1 & \cdots & a_q^q \\
+\end{array}
+\right]
+\]
+
+note in matrix:
+\[
+\omega \wedge \omega =\omega^i_k \wedge \omega^k_j\neq 0
+\]
+
+
+\[
+DS = \omega \otimes S
+\]
+
+\[S' = AS\]
+
+\begin{align*}
+DS' & = \omega' \otimes S' \\
+ & = D(AS) \\
+ & = dA \otimes S + A\cdot DS \\
+ & = (dA + A\cdot \omega )\otimes S \\
+ & = (dA\cdot A^{-1} + A\cdot \omega \cdot A^{-1})\otimes S'
+\end{align*}
+\[
+\omega' = dA\cdot A^{-1} + A\cdot \omega \cdot A^{-1} 
+\]
+\[
+\omega'A = dA + A\cdot \omega \quad dA = \omega'A - A\omega
+\]
+\[
+d(\omega'A) = d(dA+ A\cdot \omega)
+\]
+\[
+d\omega' \cdot A - \omega' \wedge dA = dA \wedge \omega + A\cdot d\omega
+\]
+\[
+d\omega' \cdot A - \omega' \wedge ( \omega'A - A\omega) = ( \omega'A - A\omega) \wedge \omega + A\cdot d\omega
+\]
+\[
+d\omega' \cdot A - \omega' \wedge \omega'A + \omega' \wedge A\omega = \omega'A  \wedge \omega- A\omega \wedge \omega + A\cdot d\omega
+\]
+\[
+(d\omega' - \omega' \wedge \omega')A= A(d\omega- \omega \wedge \omega)
+\]
+\[
+\Omega = d\omega - \omega \wedge \omega \]
+\[
+\Omega' = A \Omega A^{-1}
+\]
+
+\[
+s = \lambda^{\alpha}s_{\alpha|p} \in \pi^{-1}(p)
+\]
+
+\[
+R(X,Y)s = \lambda^{\alpha}<X\wedge Y, \Omega^{\beta}_{\alpha}>s_{\beta|p} \in \pi^{-1}(p)
+\]
+
+\[
+R(X,Y): \pi^{-1}(p) \rightarrow  \pi^{-1}(p)
+\]
+
+\[
+D \rightarrow \omega \rightarrow \Omega \rightarrow R(X,Y)
+\]
+
+\[
+R(X,Y) = D_XD_Y - D_YD_X - D_{[X,Y]}
+\]
+
+\[
+d\omega = \Omega + \omega \wedge \omega
+\]
+\begin{align*}
+d\Omega &= d(d\omega- \omega \wedge \omega)\\
+ & = -d\omega \wedge \omega + \omega \wedge d\omega \\
+ & = -(\Omega + \omega \wedge \omega)\wedge \omega + \omega \wedge (\Omega + \omega \wedge \omega)
+\end{align*}
+\[
+d\Omega = \omega \wedge \Omega - \Omega \wedge \omega
+\]
+
+\[
+Ds = 0\]
+\begin{align*}
+D(\lambda^{\alpha}s_{\alpha}) &= d\lambda^{\alpha}\cdot s_{\alpha} + \lambda^{\alpha} Ds_{\alpha} \\
+& =  d\lambda^{\beta}\cdot s_{\beta} + \lambda^{\alpha} \omega^{\beta}_{\alpha} s_{\beta}
+\end{align*}
+\[
+d\lambda^{\beta} + \lambda^{\alpha} \omega^{\beta}_{\alpha} = 0
+\]
+
+\[
+X \in T_p \quad f \in C^{\infty}_p
+\]
+\[
+<X,(df)_p> = Xf
+\]
+\[
+X \in T_p \quad f,g \in C^{\infty}_p, \alpha,\beta \in R
+\]
+\[
+X(\alpha f+\beta g) = \alpha Xf + \beta Xg
+\]
+\[
+X(fg) = <X,d(fg)_p> = <X,g(p)df+f(p)dg> = g(p)Xf+f(p)Xg
+\]
+
+
+\[
+s = \lambda^{\alpha}s_{\alpha}
+\]
+\[
+\theta^{\alpha} = d\lambda^{\alpha} + \lambda^{\beta}\omega^{\alpha}_{\beta}
+\]
+\[
+Ds = \theta^{\alpha}s_{\alpha}
+\]
+\[
+d\theta^{\alpha} = \theta^{\beta}\wedge \omega^{\alpha}_{\beta} + \lambda^{\beta}(d\omega^{\alpha}_{\beta} - \omega^{\alpha}_{\gamma}\wedge \omega^{\gamma}_{\beta})
+\]
+\[
+d\theta^{\alpha} = \theta^{\beta}\wedge \omega^{\alpha}_{\beta} + \lambda^{\beta}\Omega^{\alpha}_{\beta}
+\]
+
+
+\[
+X = x^i \frac{\partial}{\partial u^i}
+\]
+\[
+DX = (dx^i + x^j\omega^i_j)\otimes \frac{\partial}{\partial u^i} = x^i_j du^j \otimes \frac{\partial}{\partial u^i}
+\]
+\[
+x^i_j =  \frac{\partial x^i}{\partial u^j} + x^k\Gamma^i_{kj}
+\]
+
+\[
+a = a_idu^i
+\]
+\[
+Da = (da_i - a_j\omega^j_i) \otimes du^i = a_{ij} du^j \otimes du^i
+\]
+\[
+a_{ij} = \frac{\partial a_i}{\partial u^j} - a_k\Gamma^k_{ij}
+\]
+
+
+\[
+\Omega^j_i = d\omega^j_i - \omega^j_k \wedge \omega^k_i  = \frac{1}{2}R^j_{ikl}du^k \wedge du^l
+\]
+\[
+R^j_{ikl} = \frac{\partial \Gamma^j_{ik}}{\partial u^l}-\frac{\partial \Gamma^j_{il}}{\partial u^k} + \Gamma^h_{il}\Gamma^j_{hk} - \Gamma^h_{ik}\Gamma^j_{hl}
+\]
+
+\[
+T^j_{ik} = \Gamma^j_{ki} - \Gamma^j_{ik}
+\]
+\[
+T = T^j_{ik} \frac{\partial}{\partial u^j}\otimes du^i \otimes du^k
+\]
+\[
+R = R^j_{ikl} \frac{\partial}{\partial u^j}\otimes du^i \otimes du^k  \otimes du^l
+\]
+
+\[
+T(X,Y) = D_XY- D_YX - [X,Y] 
+\]
+\[
+R(X,Y) = D_XD_Y - D_YD_X - D_{[X,Y]}
+\]
+\[
+R(X,Y) = [D_X,D_Y] - D_{[X,Y]}
+\]
+
+\[
+P = \{(p;e_i)|p\in M\}
+\]
+\[
+e_i = X^k_i \left(\frac{\partial}{\partial u^k} \right)_p
+\]
+\[
+X^k_i X^{*i}_k = X^{*k}_iX^j_k = \delta^i_j
+\]
+\[
+\theta^i = X^{*i}_jdu^j
+\]
+\[
+De_i= (dX^k_i + X^k_j \omega^j_i)\otimes\frac{\partial}{\partial u^k}
+\]
+\[
+DX^k_i = dX^k_i + X^k_j \omega^j_i
+\]
+\[
+\theta^j_i = X^{*j}_kDX^k_i
+\]
+\[
+ \theta^j_i= X^{*j}_k(dX^k_i+X^k_i\omega^k_j)
+\]
+\[
+\begin{cases}
+du^i &= X^i_j \theta^j \\
+dX^i_j & = -X^k_j\omega^i_k + X^k_j \theta^i_k
+\end{cases}
+\]
+
+\[
+\omega^i_k = \Gamma^i_{kj}du^j = \Gamma^i_{kj} X^j_l \theta^l
+\]
+
+\[
+d\theta^j - \theta^k \wedge \theta^j_k = X^{*j}_rX^p_kX^q_l\Gamma^r_{pq}\theta^l\wedge\theta^k
+\]
+
+\[
+d\theta^j - \theta^k \wedge \theta^j_k = \frac{1}{2} X^{*j}_rX^p_kX^q_lT^r_{pq}\theta^k\wedge\theta^l
+\]
+
+\[
+d\theta^j_i - \theta^k_i \wedge \theta^j_k = X^{*j}_hX^k_i\Omega^h_k
+\]
+
+\[
+d\theta^j_i - \theta^k_i \wedge \theta^j_k = \frac{1}{2} X^{*j}_qX^p_iX^r_kX^s_lR^q_{prs} \theta^k \wedge \theta^l
+\]
+
+\begin{align*}
+P^j_{kl} &= X^{*j}_rX^p_kX^q_lT^r_{pq}\\
+S^j_{ikl} &= X^{*j}_qX^p_iX^r_kX^s_lR^q_{prs}
+\end{align*}
+
+\[
+\begin{cases}
+\displaystyle d\theta^j - \theta^k \wedge \theta^j_k = \frac{1}{2} P^j_{kl} \theta^k \wedge \theta^l \\
+\\
+\displaystyle d\theta^j_i - \theta^k_i \wedge \theta^j_k = \frac{1}{2} S^j_{ikl} \theta^k \wedge \theta^l
+\end{cases}
+\]
+\[
+\Theta^j = \frac{1}{2} P^j_{kl} \theta^k \wedge \theta^l
+\]
+\[
+\Theta^j_i = \frac{1}{2} S^j_{ikl} \theta^k \wedge \theta^l
+\]
+\[
+\begin{cases}
+d\theta^j - \theta^k \wedge \theta^j_k =  \Theta^j\\
+d\theta^j_i - \theta^k_i \wedge \theta^j_k = \Theta^j_i
+\end{cases}
+\]
+
+\[
+\begin{cases}
+d\Theta^j + \Theta^k \wedge \theta^j_k - \theta^k \wedge \Theta^j_k = 0 \\
+d\Theta^j_i+ \Theta^k_i \wedge \theta^j_k - \theta^k_i \wedge \Theta^j_k = 0
+\end{cases}
+\]
+
+\[
+G = g_{ij} du^i \otimes du^j
+\]
+\[
+g_{ij} = g_{ji}
+\]
+\[
+X = X^i \frac{\partial}{\partial u^i} \quad Y = Y^i \frac{\partial}{\partial u^i}
+\]
+\[
+G(X,Y) = g_{ij}X^iY^j
+\]
+\[
+(X,Y) = X \cdot Y = g_{ij}X^iY^j
+\]
+\[
+X_i = g_{ij}X^j \quad Y_i = g_{ij}Y^j
+\]
+\[
+t_{ijk} = g_{il}t^l_{jk} \quad t^{ij}_k = g^{jl}t^i_{lk}
+\]
+
+\[
+D(a_idu^i) = (da_j-a_i\omega^i_j)du^j \otimes du^i
+\]
+
+\[
+D(du^i) = -\omega^i_jdu^j \quad D(\frac{\partial}{\partial u^i}) = \omega^j_i\frac{\partial}{\partial u^j}
+\]
+\[
+D(g_{ij} du^i \otimes du^j) = dg_{ij}du^i \otimes du^j + g_{ij}D(du^i)\otimes du^j + g_{ij} du^i \otimes D(du^j)
+\]
+\[
+D(g_{ij} du^i \otimes du^j) = dg_{ij}du^i \otimes du^j - g_{ij}\omega^i_kdu^k\otimes du^j - g_{ij} du^i \otimes \omega^j_kdu^k
+\]
+\begin{align*}
+D(g_{ij} du^i \otimes du^j) & = dg_{ij}du^i \otimes du^j - g_{kj}\omega^k_idu^i\otimes du^j - g_{ik} \omega^k_j du^i \otimes du^j \\
+ & = (dg_{ij}- g_{kj}\omega^k_i - g_{ik} \omega^k_j )du^i \otimes du^j 
+\end{align*}
+
+
+\[
+D(g_{ij} du^i \otimes du^j) = (dg_{ij} - \omega^k_i g_{kj} - \omega^k_j g_{ik}) du^i \otimes du^j
+\]
+
+\[
+DG = 0 \Rightarrow dg_{ij} =  \omega^k_i g_{kj} + \omega^k_j g_{ik}
+\]
+
+\[
+(e_1, \cdots ,e_m) \quad (\theta^1, \cdots, \theta^m)
+\]
+
+\[
+De_i = \theta^j_i e_j \quad D(\theta^i) = -\theta^i_j\theta^j
+\]
+\[
+d\theta^i - \theta^j \wedge \theta^i_j = 0
+\]
+\[
+g_{ij} = G(e_i,e_j)
+\]
+\[
+dr = \theta^ie_i
+\]
+\[
+ds^2 = g_{ij} \theta^i \theta^j
+\]
+
+\[
+DG = 0 \Rightarrow D( g_{ij} \theta^i \theta^j) = 0
+\]
+
+\[
+dg_{ij} = \theta^k_ig_{kj} + \theta^k_jg_{ik}
+\]
+
+\[
+\Omega = d\omega - \omega \wedge \omega
+\]
+\[
+\Omega^i_j = d\omega^i_j -   \omega^k_j\wedge \omega^i_k
+\]
+\[
+\Omega_{ij} = \Omega^k_i g_{kj}
+\]
+\[
+d^2g_{ij} = d(\omega^k_ig_{kj} + \omega^k_jg_{ik}) = 0
+\]
+\[
+d(\omega^k_i)g_{kj} + d(\omega^k_j)g_{ik} - \omega^k_i\wedge d(g_{kj}) - \omega^k_j \wedge d(g_{ik}) = 0
+\]
+
+\[
+d(\omega^k_i)g_{kj} + d(\omega^k_j)g_{ik}- \omega^k_i\wedge (\omega^s_kg_{sj}+\omega^s_jg_{ks} ) - \omega^k_j \wedge (\omega^s_kg_{is} + \omega^s_ig_{sk}) = 0
+\]
+\[
+d(\omega^k_i)g_{kj} + d(\omega^k_j)g_{ik}- 
+\omega^k_i\wedge \omega^s_kg_{sj}- \omega^k_i\wedge\omega^s_jg_{ks} - 
+\omega^k_j \wedge \omega^s_kg_{is} - \omega^k_j \wedge\omega^s_ig_{sk} = 0
+\]
+\[
+d(\omega^k_i)g_{kj} + d(\omega^k_j)g_{ik}- 
+\omega^s_i\wedge \omega^k_sg_{kj}- \omega^k_i\wedge\omega^s_jg_{ks} - 
+\omega^s_j \wedge \omega^k_sg_{ik} - \omega^s_j \wedge\omega^k_ig_{ks} = 0
+\]
+\[
+(d\omega^k_i-\omega^s_i\wedge \omega^k_s) g_{kj} + (d\omega^k_j-\omega^s_j \wedge \omega^k_s)g_{ik}- (\omega^k_i\wedge\omega^s_j+\omega^s_j \wedge\omega^k_i)g_{ks} = 0
+\]
+\[
+\Omega^k_i g_{kj} + \Omega^k_j g_{ik} = 0
+\]
+\[
+\Omega_{ij} + \Omega_{ji} = 0
+\]
+
+\[
+d < s, s^*> = <Ds, s^*> + <s,Ds^*>
+\]
+
+\[
+f,g \in C^{\infty}=A^0(M)
+\]
+\[
+f: p\in M \rightarrow f(p) \in R
+\]
+
+\[
+X,Y \in A^1(M^*) = \Gamma(\Lambda^1(M))
+\]
+\[
+X: f \in C^{\infty} \rightarrow Xf \in C^{\infty}
+\]
+\[
+<X,df> =Xf \in C^{\infty}
+\]
+\[
+X: p \in M \rightarrow X|_p \in T_p
+\]
+
+\[
+\omega \in A^1(M) = \Gamma(\Lambda^1(M^*))
+\]
+\[
+\omega: p \in M \rightarrow \omega(p) \in T^*_p \subset \Lambda^1(M^*)
+\]
+\[
+<X,\omega> = <X,df> \in C^{\infty}
+\]
+
+\[
+A^r(M^*) = \Gamma(\Lambda^r(M)) \quad A^r(M) = \Gamma(\Lambda^r(M^*))
+\]
+
+\[
+XY \in A^1(M^*) \quad X \wedge Y \in A^2(M^*)  \quad d\omega \in A^2(M) 
+\]
+\[
+<X\wedge Y,d\omega> = X<Y,\omega> - Y<X,\omega> - <[X,Y],\omega>
+\]
+\[
+\omega = g df \quad d\omega = dg \wedge df
+\]
+\[
+<X\wedge Y,d\omega> = Xg \cdot Yf - Xf \cdot Yg
+\]
+\[
+<X\wedge Y,d\omega>(p) = (Xg)(p) \cdot (Yf)(p)- (Xf)(p) \cdot (Yg)(p)
+\]
+
+\[
+\omega_1, \omega_2 \in A(M) \quad \omega_1(p), \omega_2(p) \in \Lambda(M^*)
+\]
+\[
+(\omega_1 \wedge \omega_2 )(p) = \omega_1(p) \wedge \omega_2(p)
+\]
+
+\[
+\frac{\partial}{\partial u^i}\bigg|_p \wedge \frac{\partial}{\partial u^j}\bigg|_p \in \Lambda^2(T_p) \quad (du^i)_p\wedge(du^j)_p \in \Lambda^2(T_p^*)
+\]
+\[
+\frac{\partial}{\partial u^i} \wedge \frac{\partial}{\partial u^j} \in A^2(M^*) \quad du^i \wedge du^j \in A^2(M)
+\]
+
+
+\[
+X = X^i \frac{\partial}{\partial u^i} \quad Y = Y^i \frac{\partial}{\partial u^i} \quad Z = Z^i \frac{\partial}{\partial u^i} 
+\]
+
+
+\[
+R(X,Y)Z = R^l_{.kij}X^iY^jZ^k\frac{\partial}{\partial u^k}
+\]
+
+\[
+R^l_{.kij} = <R \left( \frac{\partial}{\partial u^i},\frac{\partial}{\partial u^j}\right) \frac{\partial}{\partial u^k}, du^l>
+\]
+
+\[
+R \left( \frac{\partial}{\partial u^i},\frac{\partial}{\partial u^j}\right) = D_{\partial/\partial u^i}D_{\partial/\partial u^j} - D_{\partial/\partial u^j}D_{\partial/\partial u^i}
+\]
+
+\[
+R \left( \frac{\partial}{\partial u^i},\frac{\partial}{\partial u^j}\right) \frac{\partial}{\partial u^k} = D_{{\partial}/{\partial u^i}}D_{\partial/\partial u^j}\frac{\partial}{\partial u^k} - D_{{\partial}/{\partial u^j}}D_{\partial/\partial u^i}\frac{\partial}{\partial u^k}
+\]
+\[
+R \left( \frac{\partial}{\partial u^i},\frac{\partial}{\partial u^j}\right) \frac{\partial}{\partial u^k} = 
+D_{{\partial}/{\partial u^i}}(\Gamma^l_{kj}\frac{\partial}{\partial u^l}) - D_{{\partial}/{\partial u^j}}(\Gamma^l_{ki}\frac{\partial}{\partial u^l})
+\]
+\[
+R^l_{kij} = <\frac{\partial}{\partial u^i}\wedge\frac{\partial}{\partial u^j},\Omega^l_k>
+\]
+
+\[
+R^l_{kij} = <\frac{\partial}{\partial u^i}\wedge\frac{\partial}{\partial u^j},d\omega^l_k> -   <\frac{\partial}{\partial u^i}\wedge\frac{\partial}{\partial u^j},\omega^l_s \wedge \omega^s_k>
+\]
+
+\[
+ T \left( \frac{\partial}{\partial u^i},\frac{\partial}{\partial u^j}\right) =  D_{\partial/\partial u^i}\frac{\partial}{\partial u^j} - D_{\partial/\partial u^j}\frac{\partial}{\partial u^i}
+\]
+
+\[
+T(X,Y) = T^k_{ij}X^iY^j\frac{\partial}{\partial u^k}
+\]
+
+\[
+T^k_{ij} = <T\left( \frac{\partial}{\partial u^i},\frac{\partial}{\partial u^j}\right),du^k>
+\]
+
+\begin{align*}
+  D_{\partial/\partial u^i}\frac{\partial}{\partial u^j} & = <\frac{\partial}{\partial u^i} ,D(\frac{\partial}{\partial u^j}) > \\
+														   & = <\frac{\partial}{\partial u^i} ,\omega^k_j\frac{\partial}{\partial u^k} > \\
+														   & = <\frac{\partial}{\partial u^i} ,\omega^k_j > \frac{\partial}{\partial u^k}\\
+														   & = <\frac{\partial}{\partial u^i} ,\Gamma^k_{jl}du^l > \frac{\partial}{\partial u^k}\\
+														   & = \Gamma^k_{ji} \frac{\partial}{\partial u^k}
+\end{align*}
+\[
+ D_{\partial/\partial u^i}\frac{\partial}{\partial u^j} = \Gamma^k_{ji} \frac{\partial}{\partial u^k}\quad D_{\partial/\partial u^j}\frac{\partial}{\partial u^i} = \Gamma^k_{ij} \frac{\partial}{\partial u^k}
+\]
+
+\[
+T^k_{ij} =<\frac{\partial}{\partial u^i} ,\omega^k_j > - <\frac{\partial}{\partial u^j} ,\omega^k_i >
+\]
+
+\[
+T^k_{ij} = -T^k_{ji}
+\]
+
+\end{document}
+
+
+
+
+
+
+
+
+
